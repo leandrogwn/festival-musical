@@ -1,0 +1,367 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito);
+
+body {
+    font-family: "Nunito", sans-serif;
+}
+
+a:hover{
+    text-decoration: none!important;
+}
+
+.base-ativa, .base-inativa{
+    width: 100%;
+    border-radius: 0px 0px 4px 4px;
+    margin: 5px 9px 5px 2px;
+}
+
+.base-ativa{
+    border: 1px solid #4C884A;
+    background-color: #E0F0D9;
+    color: #4C884A;  
+}
+
+.base-inativa{
+    border: 1px solid #C24349;
+    background-color: #F1DEE1;
+    color: #C24349;  
+}
+
+.titulo-base-ativa, .titulo-base-inativa{
+    padding: 10px;
+    color: #fff;
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
+.material-icons{
+    float:right;
+}
+
+.titulo-base-ativa {
+    background-color: #4C884A;
+}
+
+.titulo-base-inativa{
+    background-color: #C24349;
+}
+
+.span-base-ativa{
+    text-transform: capitalize;
+    color: #4C884A;
+}
+
+.span-base-inativa{
+    text-transform: capitalize;
+    color: #C24349;
+}
+
+.corpo-base {
+    padding: 10px;
+}
+
+.painel-lateral {
+    vertical-align: top;
+    width: 200px;
+    display: inline-block;
+    text-align: center;
+}
+
+#painelconteudo {
+    vertical-align: top;
+    flex-grow: 1;
+    display: inline-block;
+    border: none;
+}
+
+.container-index {
+    position: inherit;
+    display: flex;
+    margin-top: 15px;
+}
+
+.center{
+    text-align: center;
+}
+
+.navbar{
+    background-color: #fff;
+    height: 60px;
+    /*box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%) !important;*/
+}
+
+
+#logo-nav{
+    margin-top: 0px;
+    width: 200px;
+}
+
+#container{
+    display: flex;
+    flex-direction:column; 
+    align-items: center;
+    
+}
+
+#container-interno{
+    display: flex;
+    flex-direction:column; 
+}
+
+.txtConfig{
+    width: 100%;
+}
+
+#botao-consulta-cnpj, #cnpj, #botao-consulta-completa{
+    width: 160px!important;
+}
+#botao-consulta-personalizada{
+    width: 100px!important;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+#cad-cod-plug{
+    width: 100px;
+}
+
+#cad-cnpj{
+    width: 300px;
+}
+
+.modal-body{
+    margin-left: 20px;
+}
+
+.btn-cadastro{
+    margin-left: 15px!important;
+}
+
+#dados-associado{
+    margin-top: -5px;
+    font-size: 16px;
+    margin-left: 4%;
+    margin-bottom: 10px;
+}
+
+.table .situacao{
+    text-align: center;
+}
+
+.table .title-table{
+    font-weight: bold;
+}
+
+.cliente-base-sem-trans{
+    width: 200px!important;
+    height: 20px;
+    border-radius: 20px;
+    bottom: 0px;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-top: 15px!important;
+    align-items: center;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+}
+
+#main-consulta-completa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer{
+    bottom:0; 
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.content-base-sem-trans{
+    width: 100%;
+}
+
+.bases-sem-transmissao{
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #BD9657;
+    background-color: #FBF8E4;
+    color: #CF9558;  
+    border-radius: 4px;
+    display: none;
+}
+
+.tooltip-linx {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    font-size: 16px;
+}
+
+.tooltip-linx span{
+    font-size: 12px;
+}
+
+.tooltip-linx .tooltiptext-linx {
+    visibility: hidden;
+    width: 250px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 100%;
+    margin-left: -125px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-linx .tooltiptext-linx::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 27%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip-linx:hover .tooltiptext-linx {
+    visibility: visible;
+    opacity: 1;
+}
+
+.lista-completa{
+    width: 90%;
+    margin-bottom: 10px;
+    border: 1px solid #CCC;
+    background-color: #fff;
+    color: #555555; 
+    border-radius: 4px;
+}
+
+.titulo-lista-completa{
+    border-radius: 0px;
+    background-color: #5b2e90;
+    border: 1px solid #5b2e90;
+    padding: 10px;
+    color: #ffffff;
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
+.titulo-lista-agrupada{
+    border-radius: 0px;
+    background-color: #5b2e90;
+    border: 1px solid #5b2e90;
+    padding: 10px;
+    color: #ffffff;
+    text-transform: capitalize;
+}
+
+.lista-completa  a:link, .lista-completa a:visited{
+    color: #555555;
+}
+
+.cabecalho-lista-completa{
+    font-weight:bold;
+    color: #441E64;
+}
+
+.coluna-centralizada{
+    text-align: center!important;
+}
+
+.badge-linx{
+    position: absolute;
+    background-color: #ffffff!important;
+    color:#5b2e90!important;
+    margin-left: 2px;
+    margin-top: -8px;
+}
+
+
+
+.tooltip-linx .tooltiptext-linx-erro {
+    visibility: hidden;
+    width: 350px;
+    background-color: #555;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 5px 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 100%;
+    margin-left: -75px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-linx .tooltiptext-linx-erro::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 27%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip-linx:hover .tooltiptext-linx-erro {
+    visibility: visible;
+    opacity: 1;
+}
+
+.titulo-consulta-completa{
+    font-size: 20px;
+    color: #F39200;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    font-weight: bold;
+}
+
+.logout{
+    color: rgba(0, 0, 0, 0.55);
+    float: right;
+    margin-top: -29px;
+}
+
+.img-logout{
+    margin-left: 20px!important;
+    width: 20px;
+}
+
+.input-filtro{
+    height: 30px!important;
+    width: 150px;
+} 
+
+#conteudo-personalizado{
+    width: 100%!important;
+    border: none;
+}
+
+#p-erro-senha{
+    color: red;
+    display: none;
+}
+
+#img-festival{
+    margin-top: 100px;
+}
