@@ -5,8 +5,7 @@ if (!isset($_SESSION)) {
 }
 include("../../conect/conectaMysqlOO.php");
 
-class nota
-{
+class nota {
 
     private $dadosForm;
     private $fase;
@@ -22,14 +21,12 @@ class nota
     private $tela;
     private $sql;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->recebeDados();
         $this->gravaDados();
     }
 
-    private function recebeDados()
-    {
+    private function recebeDados() {
         $this->dadosForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         $this->fase = $this->dadosForm["fase"];
         $this->id_interprete = $this->dadosForm["id_interprete"];
@@ -43,12 +40,11 @@ class nota
         $this->tela = $this->dadosForm["tela"];
     }
 
-    private function gravaDados()
-    {
+    private function gravaDados() {
 
         $ObjConecta = new conectaMysql();
         $this->sql = "INSERT INTO f_nota (fase, id_interprete, id_jurado, afinacao, ritmo, interpretacao, letra, nota, genero) VALUES ('$this->fase', $this->id_interprete, $this->id_jurado, '$this->afinacao', '$this->ritmo','$this->interpretacao','$this->letra','$this->nota', '$this->genero')";
-        
+
         $ObjConecta->insertDBNota($this->sql, null, $this->tela, "../painel.php");
     }
 

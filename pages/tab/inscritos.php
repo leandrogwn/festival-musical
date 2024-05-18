@@ -22,7 +22,7 @@ $itens_por_pagina = $_SESSION['registro_pagina'];
 $pagina = intval($_GET['pagina']);
 
 // puxar produtos do banco
-$sql_code = "select * from f_inscricao where festival = '" . $festival . " ' order by categoria ";
+$sql_code = "select * from f_inscricao where festival = '" . $festival . " ' order by categoria";
 
 $ObjI = new conectaMysql();
 
@@ -42,18 +42,19 @@ $num_paginas = ceil($num_total / $itens_por_pagina);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="../../css/main.css" />
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="../../css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <script src="../../js/jqueryFest.js"></script>
-    <link rel="shortcut icon" href="../../img/favicon.png" type="image/x-icon">
-    <meta charset="utf-8">
-    <title>Inscritos</title>
+    
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" media="screen">
+    
+    <link rel="shortcut icon" href="../../img/favicon.png" type="image/x-icon">
+    <meta charset="utf-8">
+    <title>Inscritos</title>
     
 </head>
 
@@ -66,7 +67,7 @@ $num_paginas = ceil($num_total / $itens_por_pagina);
             <table class="table table-striped" id="tableInscrito">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        
                         <th>Nome</th>
                         <th>Categoria</th>
                         <th>Canção com link da apresentação</th>
@@ -84,10 +85,10 @@ $num_paginas = ceil($num_total / $itens_por_pagina);
                     $qtdReg = mysqli_num_rows($sqlQtd);
 
                     if ($qtdReg > 0) {
-                        echo '<tr class="success" style="text-transform:capitalize;"><td>' . $item->id . '</td><td>' . $item->nome . '</td><td style="text-transform: capitalize;">' . $item->categoria . '</td><td><a href="' . $item->link . '" target="_blank">' . $item->cancao . '</a></td><td>' . $item->gravado_por . '</td><td><a href="mais_info.php?cod_interprete= ' . $item->id . '"><div style="text-align: center;"><img src="../../img/plus20.png"></div></a></td><td>';
-                        echo 'Liberado (<a href="../deleta/selecionado.php?festival=' . $festival . '&interprete=' . $item->id . '&tela=inscrito" target="_top">desfazer</a>)</td></tr>';
+                        echo '<tr class="success" style="text-transform:capitalize;"><td>' . $item->nome . '</td><td style="text-transform: capitalize;">' . $item->categoria . '</td><td><a href="' . $item->link . '" target="_blank">' . $item->cancao . '</a></td><td>' . $item->gravado_por . '</td><td><a href="mais_info.php?cod_interprete= ' . $item->id . '"><div style="text-align: center;"><img src="../../img/plus20.png"></div></a></td><td>';
+                        echo 'Liberado (<a href="../deleta/selecionado.php?festival=' . $festival . '&interprete=' . $item->id . '&tela=inscrito" target="_top">desfazer</a>)';
                     } else {
-                        echo '<tr style="text-transform:capitalize;"><td>' . $item->id . '</td><td>' . $item->nome . '</td><td style="text-transform: capitalize;">' . $item->categoria . '</td><td><a href="' . $item->link . '" target="_blank">' . $item->cancao . '</a></td><td>' . $item->gravado_por . '</td><td><a href="mais_info.php?cod_interprete= ' . $item->id . '"><div style="text-align: center;"><img src="../../img/plus20.png"></div></a></td><td class="text-center">';
+                        echo '<tr style="text-transform:capitalize;"><td>' . $item->nome . '</td><td style="text-transform: capitalize;">' . $item->categoria . '</td><td><a href="' . $item->link . '" target="_blank">' . $item->cancao . '</a></td><td>' . $item->gravado_por . '</td><td><a href="mais_info.php?cod_interprete= ' . $item->id . '"><div style="text-align: center;"><img src="../../img/plus20.png"></div></a></td><td class="text-center">';
                         echo '<a href="../editar/inscricaoFestival.php?codInterprete=' . $item->id .'" class="btn btn-sm ms-1 btn-secondary" id="botao-editar-interprete" title="Editar interprete"><i class="bi bi-pencil-square"></i> Editar</a> &nbsp;';
                         echo '<a href="../cadastro/liberacao_inscrito.php?festival=' . $festival . '&inscrito=' . $item->id . '&categoria=' . $item->categoria . '&tela=inscrito" target="_top">Liberar 1ª fase</a></td></tr>';
                     }
@@ -97,10 +98,11 @@ $num_paginas = ceil($num_total / $itens_por_pagina);
             </table>
 
             
+
         </fieldset>
     </div>
 
-    <script>
+     <script>
             $(document).ready(function () {
                 $('#tableInscrito').DataTable({
                     language: {

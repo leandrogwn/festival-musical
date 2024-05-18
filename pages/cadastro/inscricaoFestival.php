@@ -69,7 +69,7 @@ class inscricaoFestival {
     private function gravaDados() {
         $ObjConecta = new conectaMysql();
         $this->sql = "INSERT INTO f_inscricao (festival, nome, nascimento, rg, cpf, telefone, celular, email, informacoes_interprete, cep, uf, rua, numero, bairro, cidade, categoria, cancao, compositor, gravado_por, link, informacao_cancao, letra) VALUES ('$this->festival', '$this->nome', '$this->nascimento', '$this->rg', '$this->cpf', '$this->telefone', '$this->celular', '$this->email', '$this->informacoes_interprete', '$this->cep', '$this->uf', '$this->rua', '$this->numero', '$this->bairro', '$this->cidade', '$this->categoria', '$this->cancao', '$this->compositor', '$this->gravado_por', '$this->link', '$this->informacao_cancao', '$this->letra')";
-        $ObjConecta->insertDBInscricao($this->sql, null, $this->tela ,"../inscricaoFestival.php");
+        $ObjConecta->insertDBInscricao($this->sql, null, $this->tela, "../inscricaoFestival.php");
     }
 
 }

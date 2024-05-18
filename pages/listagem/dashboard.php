@@ -1,16 +1,15 @@
 <?php
-
 if (!isset($_SESSION)) {
     session_start();
 }
 
 include("../conect/conectaMysqlOO.php");
-$idFestival = $_SESSION['festival'];
 
+$idFestival = $_SESSION['festival'];
 $ObjConecta = new conectaMysql();
 
 //festival
-$consultaFestival = "select nome from f_festival where id = $idFestival ORDER BY id DESC LIMIT 1";
+$consultaFestival = "select nome from f_festival where id = $idFestival  ORDER BY id DESC LIMIT 1";
 
 $consultaNome = $ObjConecta->selectDB($consultaFestival);
 
@@ -32,11 +31,12 @@ $countInscrito = $ObjConecta->selectDB($consultaInscrito);
                 <div class="card-body" style="height: 154px;">
                     <h5 class="card-title">Festival ativo</h5>
                     <p class="card-text">
-                    <?php
+                        <?php
                     echo $consultaNome['nome'];
                         foreach ($consultaNome as $item) {
                             echo $item->nome;
                         } ?>
+                    </p>
                     </p>
                     <a href="<?php echo $_SESSION['domain']; ?>/pages/listagem/liberacao.php"
                         class="btn btn-primary">Liberar para apresentação</a>

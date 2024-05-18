@@ -38,7 +38,7 @@ include '../header.php';
                 }
                 ?>
             </select>
-            <label>Quant. de registro por página</label>
+            <label>Quantidade de registro por página</label>
             <input type="text" id="config_registro_pagina" name="config_registro_pagina" style="width: 10%;" required>
 
             <label>Regra de classificação: utilizar maior e menor nota?</label>

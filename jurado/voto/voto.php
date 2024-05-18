@@ -124,7 +124,7 @@ $con = $Objf->selectDB($consulta);
                     </label>
                     <input type="text" min="0" max="100" id="nota" name="nota"
                         style="width: 100%; height: 50px; font-size: 30px;" class="center"
-                        placeholder="Informe as notas de afinação, interpretação, ritmo e letra para gerar a nota." readonly>
+                        placeholder="Informe as notas de afinação, ritmo e interpretação para gerar a nota." readonly>
 
                 </div>
             </div>

@@ -3,6 +3,7 @@
 if (!isset($_SESSION)) {
     session_start();
 }
+
 class conectaMysql
 {
     /* Evita que a classe seja clonada */
@@ -34,9 +35,9 @@ class conectaMysql
     private static $dbtype = "mysql";
     private static $host = "localhost";
     private static $port = "3306";
-    private static $user = "root";
-    private static $password = "root";
-    private static $db = "music-festival";
+    private static $user = "ibtech31_music_user";
+    private static $password = "music_pass_festival";
+    private static $db = "ibtech31_music_festival";
 
 
     /* Metodos que trazem o conteudo da variavel desejada
@@ -80,8 +81,8 @@ class conectaMysql
             //se houver exceção, exibe
             die("Erro: <code>" . $i->getMessage() . "</code>");
         }
-        return ($this->conexao);
 
+        return ($this->conexao);
     }
 
     private function disconnect()
@@ -96,9 +97,9 @@ class conectaMysql
         try {
             $conexao = $this->connect();
             $query = $conexao->prepare($sql);
-            $_SESSION[$tela] = "sucess";
             $query->execute($params);
 
+            $_SESSION[$tela] = "sucess";
             echo "<script>location.replace (\"$caminho\");</script>";
 
         } catch (PDOException $exc) {
@@ -119,7 +120,7 @@ class conectaMysql
             $query->execute($params);
             $_SESSION[$tela] = "sucess";
             echo "<script>location.replace (\"$caminho\");</script>";
-            
+
         } catch (PDOException $exc) {
             $_SESSION[$tela] = "erro";
             echo "<script>location.replace (\"$caminho\");</script>";
@@ -136,11 +137,11 @@ class conectaMysql
             $query = $conexao->prepare($sql);
             $query->execute($params);
             $_SESSION[$tela] = "sucess";
-            echo "<script>location.replace (\"$caminho\");</script>";
-            self::__destruct();
+        echo "<script>location.replace (\"$caminho\");</script>";
 
+        self::__destruct();
     }
-
+    
     /* Método update que altera valores do banco de dados e retorna o número de linhas afetadas */
 
     public function updateDB($sql, $params = null)
@@ -162,7 +163,7 @@ class conectaMysql
             $rs = $query->rowCount();
             $_SESSION[$tela] = "update";
             echo "<script>location.replace (\"$caminho\");</script>";
-
+            
         } catch (PDOException $exc) {
             $_SESSION[$tela] = "erro";
             echo "<script>location.replace (\"$caminho\");</script>";
@@ -178,7 +179,7 @@ class conectaMysql
     {
         $query = $this->connect()->prepare($sql);
         $query->execute($params);
-        $rs = $query->rowCount() or die(print_r($query->errorInfo()));
+        $rs = $query->rowCount() or die(print_r($query->errorInfo() ));
         $_SESSION[$tela] = "deleted";
         echo "<script>location.replace (\"$caminho\");</script>";
         self::__destruct();

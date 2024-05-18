@@ -51,12 +51,12 @@ $con = $Objf->selectDB($consulta);
             </div>
             <div class="row-fluid">
                 <div class="span2">
-                    <label>Quant. de registro por página</label>
-                    <input type="text" id="config_registro_pagina" class="txtConfig" name="config_registro_pagina"
+                    <label>Registro por página</label>
+                    <input type="number" id="config_registro_pagina" class="txtConfig" name="config_registro_pagina"
                         value="<?php echo $_SESSION['registro_pagina'] ?>" required>
                 </div>
                 <div class="span2">
-                    <label>Excluir maior e menor nota?</label>
+                    <label>Excluir maior/menor nota?</label>
                     <select id="exclusao_notas" name="exclusao_notas" class="txtConfig" required>
                         <?php
                         if ($_SESSION['exclusao_notas'] == 0) {
@@ -71,12 +71,12 @@ $con = $Objf->selectDB($consulta);
                     </select>
                 </div>
                 <div class="span2">
-                    <label>Quant. classificados 2ª fase</label>
+                    <label>Qtd. classificados 2ª fase</label>
                     <input type="text" id="qtd_class_seg_fase" class="txtConfig" name="qtd_class_seg_fase"
                         value="<?php echo $_SESSION['qtd_class_seg_fase'] ?>" required>
                 </div>
                 <div class="span2">
-                    <label>Quant. classificados final</label>
+                    <label>Qtd. classificados final</label>
                     <input type="text" class="txtConfig" id="qtd_class_final" name="qtd_class_final"
                         value="<?php echo $_SESSION['qtd_class_final'] ?>" required>
                 </div>

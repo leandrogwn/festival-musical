@@ -3,7 +3,7 @@
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
 <link rel="stylesheet" type="text/css" media="screen" href="<?php echo $_SESSION['domain']; ?>/css/main.css" />
-<link rel="shortcut icon" href="<?php echo $_SESSION['domain']; ?>/img/favicon.png" type="image/x-icon">
+<link rel="shortcut icon" href="../../img/favicon.png" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
 <nav class="navbar" style="background-color: #edf0f5;">

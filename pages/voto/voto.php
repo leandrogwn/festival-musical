@@ -68,7 +68,7 @@ $con = $Objf->selectDB($consulta);
                 <h4>Nota</h4>
             </label>
             <input type="text" id="nota" name="nota" style="width: 100%; height: 50px; font-size: 30px;" class="center"
-                placeholder="Informe a nota do interprete" pattern="\d+(,\d\d)?">
+                placeholder="Nota do interprete. Ex: 5.55" pattern="^\d(\.\d{1,2}|,\d{1,2})?|10$?">
         </fieldset>
         <div class="modal-footer">
             <input class="btn btn-primary" id="botao-submit" value="Enviar avaliação" onclick="sweetalert()">
@@ -89,9 +89,10 @@ $con = $Objf->selectDB($consulta);
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function sweetalert() {
+            var nota = document.getElementById('nota').value;
             Swal.fire({
                 title: 'Atenção!',
-                text: "Confirma o envio da nota para o interprete ? ",
+                html: "Confirma a nota <br><b>" + nota + "</b><br>para o interprete <?php echo $item->nome ?>? ",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

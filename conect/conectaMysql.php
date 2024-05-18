@@ -1,7 +1,6 @@
 <?php
-define('DB_CHARSET', 'utf8');
 
-$conMysql = mysqli_connect('127.0.0.1','root', 'root','music-festival');
+$conMysql = mysqli_connect('localhost','ibtech31_music_user', 'music_pass_festival','ibtech31_music_festival');
 if (!$conMysql) {
     echo "Error: Unable to connect to MySQL." . PHP_EOL;
     echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
@@ -10,5 +9,5 @@ if (!$conMysql) {
 }
 
 
-// para a conexão com o MySQL
+
 mysqli_set_charset($conMysql, 'utf8');

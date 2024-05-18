@@ -318,7 +318,7 @@ echo $_SESSION['nome_festival'];
                                 $regraAfinacao = $item->afinacao_s_regra;
                                 $regraInterpretacao = $item->interpretacao_s_regra;
                                 $regraRitmo = $item->ritmo_s_regra;
-                                $regraLetra = $item->letra_s_regra;
+                                $regraLetra = $item->letra_s_regra;                                
                             }
 
                             echo '<tr style="text-transform:capitalize; font-size: 15px;"><td style="text-align:center"><b>' . $i . '</b></td><td style="text-align:center"><b>' . $item->id . '</b></td><td><b>' . $item->nome . '</b></td><td><b>' . $item->cidade . '/'. $item->uf .'</b></td><td><b>' . $item->cancao . '</b></td><td style="text-align:right; font-size: 17px;"><b>' . number_format($regraNota, 3, '.', '') . '</b></td></tr>';

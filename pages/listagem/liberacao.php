@@ -25,7 +25,6 @@ $con = $Objf->selectDB($consulta);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
-        
     <link href="../../css/main.css" rel="stylesheet">
     <script src="../../js/jqueryFest.js"></script>
 
@@ -58,12 +57,12 @@ $con = $Objf->selectDB($consulta);
 
 
 
-
+                
                 <legend>
                     <?php
                     foreach ($con as $item) {
                         $_SESSION['nome_festival'] = $item->nome;
-                        echo 'Festival: ' . $_SESSION['nome_festival'];
+                        echo 'Festival: '.$_SESSION['nome_festival'];
                     }
                     ?>
                 </legend>
@@ -80,20 +79,19 @@ $con = $Objf->selectDB($consulta);
 
                         <div class="col">
                             <label for="liberacao_categoria" class="form-label">Categoria</label>
-                            <select required id="liberacao_categoria" name="liberacao_categoria"  class="form-select" style="width: 100%;">
+                            <select required id="liberacao_categoria" name="liberacao_categoria" class="form-select" style="width: 100%;">
                                 <option value="gospel">Gospel</option>
-                                <option value="gaucho">Gaucho</option>
-                                <option value="juvenil">Infanto Juvenil</option>
-                                <option value="mpb">MPB</option>
-                                <option value="pagode">Pagode</option>
-                                <option value="pop">Pop</option>
-                                <option value="popular">Popular</option>
-                                <option value="rap">Rap</option>
-                                <option value="reggae">Reggae</option>
-                                <option value="rock">Rock</option>
-                                <option value="sertanejo" >Sertanejo</option>
+    							<option value="gaucho">Gaucho</option>
+    							<option value="juvenil">Infanto Juvenil</option>
+    							<option value="mpb" >MPB</option>
+    							<option value="pagode">Pagode</option>
+    							<option value="pop">Pop</option>
+    							<option value="popular">Popular</option>
+    							<option value="rap">Rap</option>
+    							<option value="reggae">Reggae</option>
+    							<option value="rock">Rock</option>
+                                <option value="sertanejo">Sertanejo</option>
                             </select>
-
                         </div>
                         <div class="col">
                             <button class="btn btn-primary" style="width:100%; margin-top: 30px;"
@@ -103,7 +101,7 @@ $con = $Objf->selectDB($consulta);
                         </div>
                     </div>
                 </div>
-
+                
             </fieldset>
         </form>
         <script type="text/javascript">
@@ -111,14 +109,14 @@ $con = $Objf->selectDB($consulta);
 
             <?php
             if (isset($_SESSION[' f '])) {
-                    $f = $_SESSION[' f '];
-                    $c = $_SESSION[' c '];
-                    echo ' $("#liberacao_fase ").val(' . $f . ');
-                    $("#liberacao_categoria ").val("' . $c . '");
+                $f = $_SESSION[' f '];
+                $c = $_SESSION[' c '];
+                echo ' $("#liberacao_fase ").val(' .$f. ');
+                    $("#liberacao_categoria ").val("' .$c. '");
                     $("#botao - listar - interprete ").click();';
 
-                unset($_SESSION[' f '], $_SESSION[' c ']);
-                }
+                    unset($_SESSION[' f '], $_SESSION[' c ']);
+            }
             ?>
 
                     $(".alert").fadeTo(6000, 500).slideUp(500, function () {
@@ -135,7 +133,7 @@ $con = $Objf->selectDB($consulta);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
-
+    
     <?php
     if (isset($_SESSION['msg_postergar'])) {
         echo '

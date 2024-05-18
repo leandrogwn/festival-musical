@@ -270,7 +270,7 @@ $con = $Objf->selectDB($consulta);
                 <div class="row-fluid">
                     <div class="span3">
                         <label>Categoria</label>
-                        <select id="categoria" name="categoria"  style="width: 98%">
+                         <select id="categoria" name="categoria"  style="width: 98%">
 							<option value="gospel">Gospel</option>
 							<option value="gaucho">Gaucho</option>
 							<option value="juvenil">Infanto Juvenil</option>
@@ -281,7 +281,7 @@ $con = $Objf->selectDB($consulta);
 							<option value="rap">Rap</option>
 							<option value="reggae">Reggae</option>
 							<option value="rock">Rock</option>
-                            <option value="sertanejo"selected>Sertanejo</option>
+                            <option value="sertanejo">Sertanejo</option>
                         </select>
                     </div>
                     <div class="span3">

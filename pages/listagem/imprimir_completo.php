@@ -23,13 +23,15 @@ if ($fase == "1") {
     $consultaInscrito = "select f_inscricao.*, f_primeira_fase.id_interprete, f_primeira_fase.categoria
 from f_inscricao
 inner join f_primeira_fase
-on f_inscricao.id = f_primeira_fase.id_interprete
+on f_inscricao.festival like '$idFestival'
+and f_inscricao.id = f_primeira_fase.id_interprete
 and f_primeira_fase.categoria like '$nome_categoria'";
 } else if ($fase == "2") {
     $consultaInscrito = "select f_inscricao.*, f_nota.fase, f_nota.id_interprete, avg(f_nota.nota) as nota_s_regra, (sum(f_nota.nota)-(min(f_nota.nota)+max(f_nota.nota)))/(count(f_nota.nota)-2) as nota_c_regra, min(f_nota.nota) as menor_nota, max(f_nota.nota) as maior_nota
 from f_inscricao
 inner join f_nota
-on f_inscricao.id = f_nota.id_interprete
+on f_inscricao.festival like '$idFestival'
+and f_inscricao.id = f_nota.id_interprete
 and f_nota.fase = 2
 and f_nota.genero like '$nome_categoria'
 group by f_nota.id_interprete order by $regra desc limit $qtd_class_final";
@@ -37,7 +39,8 @@ group by f_nota.id_interprete order by $regra desc limit $qtd_class_final";
     $consultaInscrito = "select f_inscricao.*, f_nota.fase, f_nota.id_interprete, avg(f_nota.nota) as nota_s_regra, (sum(f_nota.nota)-(min(f_nota.nota)+max(f_nota.nota)))/(count(f_nota.nota)-2) as nota_c_regra, min(f_nota.nota) as menor_nota, max(f_nota.nota) as maior_nota
 from f_inscricao
 inner join f_nota
-on f_inscricao.id = f_nota.id_interprete
+on f_inscricao.festival like '$idFestival'
+and f_inscricao.id = f_nota.id_interprete
 and f_nota.fase = 3
 and f_nota.genero like '$nome_categoria'
 group by f_nota.id_interprete order by $regra desc";

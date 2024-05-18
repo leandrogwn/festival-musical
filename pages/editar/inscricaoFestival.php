@@ -238,7 +238,7 @@ $interprete = $Objf->selectDB($consultaInterprete);
                     </div>
                 </div>
                 <label>Infomaçõs adicionais/Outros (Opcional)</label>
-                <input type="text" id="informacao_interprete" name="informacao_interprete" style="width: 99%;"  value="<?php echo $inscrito->informacao_interprete; ?>">
+                <input type="text" id="informacao_interprete" name="informacao_interprete" style="width: 99%;"  value="<?php echo $inscrito->informacoes_interprete; ?>">
 
                 <div class="row-fluid">
                     <div class="span2">

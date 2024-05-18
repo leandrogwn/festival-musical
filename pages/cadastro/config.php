@@ -34,7 +34,7 @@ class config {
 
     private function atualizaConfig() {
         $ObjConecta = new conectaMysql();
-        $this->sql = "INSERT INTO f_config (user, festival_ativo, registros_pagina, exclusao_notas, qtd_class_seg_fase, qtd_class_final, domain) VALUES ($this->id_user, $this->festival_ativo, $this->registro_pagina, $this->exclusao_notas, $this->qtd_class_seg_fase,  $this->qtd_class_final,  \"$this->domain\")";
+        $this->sql = "INSERT INTO f_config (user, festival_ativo, registros_pagina, exclusao_notas, qtd_class_seg_fase, qtd_class_final, domain) VALUES ($this->id_user, $this->festival_ativo, $this->registro_pagina, $this->exclusao_notas, $this->qtd_class_seg_fase,  $this->qtd_class_final, \"$this->domain\")";
         $ObjConecta->insertDB($this->sql, null, $this->tela, "../tab/opcoes.php");
     }
 }
