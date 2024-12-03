@@ -32,12 +32,12 @@ class conectaMysql
     private static $db = "pibemaprgovbr";
     */
     //Servidor local
-    private static $dbtype = "mysql";
-    private static $host = "localhost";
-    private static $port = "3306";
-    private static $user = "ibtech31_music_user";
-    private static $password = "music_pass_festival";
-    private static $db = "ibtech31_music_festival";
+    private static $dbtype = 'mysql';
+    private static $host = $_ENV["AZURE_MYSQL_HOST"];
+    private static $port = $_ENV["AZURE_MYSQL_PORT"];
+    private static $user = $_ENV["AZURE_MYSQL_USERNAME"];
+    private static $password = $_ENV["AZURE_MYSQL_PASSWORD"];
+    private static $db = $_ENV["AZURE_MYSQL_DBNAME"];
 
 
     /* Metodos que trazem o conteudo da variavel desejada

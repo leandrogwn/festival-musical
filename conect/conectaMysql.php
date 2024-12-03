@@ -1,6 +1,6 @@
 <?php
 
-$conMysql = mysqli_connect('localhost','ibtech31_music_user', 'music_pass_festival','ibtech31_music_festival');
+$conMysql = mysqli_connect($_ENV["AZURE_MYSQL_HOST"],$_ENV["AZURE_MYSQL_USERNAME"], $_ENV["AZURE_MYSQL_PASSWORD"],$_ENV["AZURE_MYSQL_DBNAME"]);
 if (!$conMysql) {
     echo "Error: Unable to connect to MySQL." . PHP_EOL;
     echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
