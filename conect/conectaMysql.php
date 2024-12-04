@@ -1,8 +1,6 @@
 <?php
 
-// Caminho para o certificado SSL da autoridade certificadora (CA)
-// Você deve garantir que este caminho esteja correto no seu servidor
-$sslCertPath = '/path/to/DigiCertGlobalRootCA.crt.pem'; // Substitua com o caminho correto
+$sslCertPath = '/home/site/wwwroot/DigiCertGlobalRootCA.crt.pem'; 
 
 // Parâmetros de conexão com o MySQL
 $host = $_ENV["AZURE_MYSQL_HOST"];
@@ -12,7 +10,7 @@ $dbname = $_ENV["AZURE_MYSQL_DBNAME"];
 
 // Configurando a conexão MySQL com SSL
 $conMysql = mysqli_init(); // Inicializando a conexão
-mysqli_ssl_set($conMysql, NULL, NULL, $sslCertPath, NULL, NULL); // Configurando o SSL
+mysqli_ssl_set($conMysql, NULL, NULL, $sslCertPath, NULL, NULL); 
 mysqli_real_connect($conMysql, $host, $username, $password, $dbname);
 
 if (mysqli_connect_errno()) {

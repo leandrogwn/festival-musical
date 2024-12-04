@@ -7,7 +7,7 @@ class conectaMysql
     private static $dbname = 'databasename';
     private static $user = 'myadmin';
     private static $password = 'yourpassword';
-    private static $sslCertPath = '/path/to/DigiCertGlobalRootCA.crt.pem';  // Certificado CA (caminho correto)
+    private static $sslCertPath = '/home/site/wwwroot/DigiCertGlobalRootCA.crt.pem';  
 
     private $pdo;
 
@@ -17,8 +17,8 @@ class conectaMysql
         try {
             // Configurações de SSL
             $options = array(
-                PDO::MYSQL_ATTR_SSL_CA => self::$sslCertPath,  // Caminho do Certificado da Autoridade (CA)
-                PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false, // Desabilitar verificação do servidor (opcional)
+                PDO::MYSQL_ATTR_SSL_CA => self::$sslCertPath,  
+                PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false, 
             );
 
             // Criando a conexão PDO com SSL
