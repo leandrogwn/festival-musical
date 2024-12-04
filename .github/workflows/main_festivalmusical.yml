@@ -1,4 +1,4 @@
-name: Upload PHP app to Azure Web App
+name: Upload files to Azure Web App
 
 on:
   push:
@@ -7,34 +7,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  upload:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Zip application files
-        run: zip -r release.zip ./*
-
-      - name: Upload artifact for deployment
-        uses: actions/upload-artifact@v4
-        with:
-          name: php-app
-          path: release.zip
-
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: php-app
-
-      - name: Unzip artifact
-        run: unzip -o release.zip  # Forçar substituição sem interação
-
-      - name: Deploy to Azure Web App
+      - name: Upload files to Azure Web App (no build)
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'festivalmusical'  # Nome do seu Web App no Azure
-          slot-name: 'Production'     # Slot de produção ou staging
-          package: .                  # Diretório com os arquivos a serem enviados
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}  # Publish Profile configurado como secret
+          app-name: festivalmusical
+          slot-name: Production
+          package: ./
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
