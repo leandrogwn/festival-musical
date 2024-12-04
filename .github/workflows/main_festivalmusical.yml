@@ -1,4 +1,4 @@
-name: Build and Upload PHP app to Azure Web App
+name: Upload PHP app to Azure Web App
 
 on:
   push:
@@ -7,52 +7,34 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
-
-      - name: Check if composer.json exists
-        id: check_files
-        uses: andstor/file-existence-action@v1
-        with:
-          files: 'composer.json'
-
-      - name: Run composer install if composer.json exists
-        if: steps.check_files.outputs.files_exists == 'true'
-        run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
-
-      - name: Zip artifact for upload
+      - name: Zip application files
         run: zip -r release.zip ./*
 
-      - name: Upload artifact for next step
+      - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
         with:
           name: php-app
           path: release.zip
 
-  upload:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: php-app
 
-      - name: Unzip artifact for upload
-        run: unzip release.zip
+      - name: Unzip artifact
+        run: unzip -o release.zip  # Forçar substituição sem interação
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'festivalmusical'
-          slot-name: 'Production'
-          package: .
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          app-name: 'festivalmusical'  # Nome do seu Web App no Azure
+          slot-name: 'Production'     # Slot de produção ou staging
+          package: .                  # Diretório com os arquivos a serem enviados
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}  # Publish Profile configurado como secret
