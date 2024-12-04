@@ -49,10 +49,15 @@ jobs:
       - name: Unzip artifact for upload
         run: unzip release.zip
 
+      - name: Set up Azure CLI
+        uses: azure/login@v1
+        with:
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'festivalmusical'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }} 
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
