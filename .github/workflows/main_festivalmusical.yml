@@ -29,12 +29,12 @@ jobs:
           name: php-app
 
       - name: Unzip artifact
-        run: unzip release.zip
+        run: unzip -o release.zip  # Forçar substituição sem interação
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'festivalmusical'
-          slot-name: 'Production'
-          package: .
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          app-name: 'festivalmusical'  # Nome do seu Web App no Azure
+          slot-name: 'Production'     # Slot de produção ou staging
+          package: .                  # Diretório com os arquivos a serem enviados
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}  # Publish Profile configurado como secret
