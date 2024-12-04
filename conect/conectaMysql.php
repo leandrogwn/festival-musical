@@ -24,7 +24,4 @@ if (mysqli_connect_errno()) {
 // Configurando o charset para utf8
 mysqli_set_charset($conMysql, 'utf8');
 
-// Agora você pode usar $conMysql para realizar consultas no banco de dados
-echo "Conexão estabelecida com sucesso!";
-
 ?>

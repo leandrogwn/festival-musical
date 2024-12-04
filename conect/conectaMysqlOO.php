@@ -32,7 +32,6 @@ class conectaMysql
             // Definir o charset
             $this->pdo->exec("set names utf8");
 
-            echo "Conexão estabelecida com sucesso!";
         } catch (PDOException $e) {
             die("Erro de conexão: " . $e->getMessage());
         }
