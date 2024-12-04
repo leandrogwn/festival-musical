@@ -1,94 +1,51 @@
 <?php
 
-if (!isset($_SESSION)) {
-    session_start();
-}
-
 class conectaMysql
 {
-    /* Evita que a classe seja clonada */
+    private static $host = 'mydemoserver.mysql.database.azure.com';
+    private static $port = 3306;
+    private static $dbname = 'databasename';
+    private static $user = 'myadmin';
+    private static $password = 'yourpassword';
+    private static $sslCertPath = '/path/to/DigiCertGlobalRootCA.crt.pem';  // Certificado CA (caminho correto)
 
-    private function __clone()
-    {
+    private $pdo;
 
-    }
-
-    /* Método que destroi a conexão com banco de dados e remove da memória todas as variáveis setadas */
-
-    public function __destruct()
-    {
-        $this->disconnect();
-        foreach ($this as $key => $value) {
-            unset($this->$key);
-        }
-    }
-
-    //Servidor remoto
-    /*private static $dbtype = "mysql";
-    private static $host = "mysql.pibema.pr.gov.br";
-    private static $port = "3306";
-    private static $user = "pibemaprgovbr";
-    private static $password = "info0016";
-    private static $db = "pibemaprgovbr";
-    */
-    //Servidor local
-    private static $dbtype = 'mysql';
-    private static $host = $_ENV["AZURE_MYSQL_HOST"];
-    private static $port = $_ENV["AZURE_MYSQL_PORT"];
-    private static $user = $_ENV["AZURE_MYSQL_USERNAME"];
-    private static $password = $_ENV["AZURE_MYSQL_PASSWORD"];
-    private static $db = $_ENV["AZURE_MYSQL_DBNAME"];
-
-
-    /* Metodos que trazem o conteudo da variavel desejada
-    @return   $xxx = conteudo da variavel solicitada */
-
-    private function getDBType()
-    {
-        return self::$dbtype;
-    }
-
-    private function getHost()
-    {
-        return self::$host;
-    }
-
-    private function getPort()
-    {
-        return self::$port;
-    }
-
-    private function getUser()
-    {
-        return self::$user;
-    }
-
-    private function getPassword()
-    {
-        return self::$password;
-    }
-
-    private function getDB()
-    {
-        return self::$db;
-    }
-
-    private function connect()
+    /* Conectar ao MySQL com PDO e SSL */
+    public function connect()
     {
         try {
-            $this->conexao = new PDO($this->getDBType() . ":host=" . $this->getHost() . ";port=" . $this->getPort() . ";charset=utf8;dbname=" . $this->getDB(), $this->getUser(), $this->getPassword());
-        } catch (PDOException $i) {
-            //se houver exceção, exibe
-            die("Erro: <code>" . $i->getMessage() . "</code>");
+            // Configurações de SSL
+            $options = array(
+                PDO::MYSQL_ATTR_SSL_CA => self::$sslCertPath,  // Caminho do Certificado da Autoridade (CA)
+                PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false, // Desabilitar verificação do servidor (opcional)
+            );
+
+            // Criando a conexão PDO com SSL
+            $this->pdo = new PDO(
+                'mysql:host=' . self::$host . ';port=' . self::$port . ';dbname=' . self::$dbname,
+                self::$user,
+                self::$password,
+                $options
+            );
+
+            // Definir o charset
+            $this->pdo->exec("set names utf8");
+
+            echo "Conexão estabelecida com sucesso!";
+        } catch (PDOException $e) {
+            die("Erro de conexão: " . $e->getMessage());
         }
 
-        return ($this->conexao);
+        return $this->pdo;
     }
 
-    private function disconnect()
+    /* Desconectar do banco de dados */
+    public function disconnect()
     {
-        $this->conexao = null;
+        $this->pdo = null;
     }
+}
 
     /* Método insert que insere valores no banco de dados e retorna o último id inserido */
 
