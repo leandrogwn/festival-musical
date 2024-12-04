@@ -14,10 +14,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Upload files to Azure Web App
+      - name: Upload files to Azure Web App (no build)
         uses: azure/webapps-deploy@v3
         with:
           app-name: festivalmusical
           slot-name: Production
-          package: ./home/site/wwwroot/
+          package: ./
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
