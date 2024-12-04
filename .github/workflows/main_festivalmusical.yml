@@ -49,17 +49,10 @@ jobs:
       - name: Unzip artifact for upload
         run: unzip release.zip
 
-      - name: Set up Azure CLI
-        uses: azure/cli-action@v1
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
         with:
-          azure-subscription: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-
-      - name: Upload files to Azure Web App
-        run: |
-          az webapp deploy --resource-group <YOUR_RESOURCE_GROUP> \
-                           --name festivalmusical \
-                           --src-path ./ \
-                           --slot Production
+          app-name: 'festivalmusical'
+          slot-name: 'Production'
+          package: .
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }} 
