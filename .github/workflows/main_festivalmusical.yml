@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check environment variables
+        run: echo ${{ secrets.AZURE_PUBLISH_PROFILE }}
       - name: Checkout repository
         uses: actions/checkout@v4
 
