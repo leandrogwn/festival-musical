@@ -1,4 +1,4 @@
-name: Deploy via FTPS to Azure Web App using lftp
+name: Deploy via FTPS to Azure Web App
 
 on:
   push:
@@ -14,19 +14,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install lftp
-        run: sudo apt-get install -y lftp
+      - name: Install curl
+        run: sudo apt-get install -y curl
 
-      # Verificar se as variáveis de ambiente estão configuradas corretamente
-      - name: Check FTP credentials
+      # Testar conexão FTPS
+      - name: Test FTPS Connection with curl
         run: |
-          echo "FTP username: ${{ secrets.AZURE_FTP_USERNAME }}"
-          echo "FTP password: ${{ secrets.AZURE_FTP_PASSWORD }}"
+          echo "Testando conexão FTPS com curl..."
+          curl -v --ftp-ssl --user ${{ secrets.AZURE_FTP_USERNAME }}:${{ secrets.AZURE_FTP_PASSWORD }} ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net
 
-      # Fazer o upload usando lftp
-      - name: Upload files to Azure Web App via FTPS
+      # Upload com FTPS usando curl
+      - name: Upload files to Azure Web App via FTPS with curl
         run: |
-          echo "Iniciando upload de arquivos..."
-          lftp -u "${{ secrets.AZURE_FTP_USERNAME }}","${{ secrets.AZURE_FTP_PASSWORD }}" \
-            -e "set ftp:ssl-allow true; mirror -R ./ /; quit" \
-            ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net
+          echo "Iniciando upload com FTPS..."
+          curl -v --ftp-ssl --user ${{ secrets.AZURE_FTP_USERNAME }}:${{ secrets.AZURE_FTP_PASSWORD }} -T "./index.php" ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net/site/wwwroot
