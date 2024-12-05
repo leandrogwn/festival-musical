@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Verifica se o secret do perfil de publicação está configurado
       - name: Check if publish profile is set
         run: |
           if [ -z "${{ secrets.AZURE_PUBLISH_PROFILE }}" ]; then
@@ -19,13 +23,20 @@ jobs:
           else
             echo "Publish profile is set."
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
+      # Cria o arquivo de perfil de publicação
+      - name: Create publish profile file
+        run: echo "${{ secrets.AZURE_PUBLISH_PROFILE }}" > publish-profile.xml
+
+      # Faz o upload dos arquivos para o Azure
       - name: Upload files to Azure Web App (no build)
         uses: azure/webapps-deploy@v3
         with:
           app-name: festivalmusical
           slot-name: Production
           package: ./
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          publish-profile: ./publish-profile.xml
+
+      # Limpeza do arquivo de perfil de publicação
+      - name: Clean up publish profile file
+        run: rm publish-profile.xml
