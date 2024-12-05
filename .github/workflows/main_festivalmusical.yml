@@ -11,12 +11,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout do repositório
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Instalar o lftp
       - name: Install lftp
-        run: sudo apt-get install lftp
+        run: sudo apt-get install -y lftp
 
+      # Teste de conexão FTP (debug)
+      - name: Test FTP Connection
+        run: |
+          echo "Testando conexão FTP..."
+          lftp -u ${{ secrets.AZURE_FTP_USERNAME }},${{ secrets.AZURE_FTP_PASSWORD }} ftps://waws-prod-cq1-021dr.ftp.azurewebsites.windows.net -e "ls; quit"
+
+      # Fazer o upload usando lftp
       - name: Upload files to Azure Web App via FTP
         run: |
+          echo "Iniciando upload de arquivos..."
           lftp -u ${{ secrets.AZURE_FTP_USERNAME }},${{ secrets.AZURE_FTP_PASSWORD }} ftps://waws-prod-cq1-021dr.ftp.azurewebsites.windows.net -e "mirror -R ./ /site/wwwroot; quit"
