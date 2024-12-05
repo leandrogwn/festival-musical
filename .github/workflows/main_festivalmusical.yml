@@ -14,17 +14,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Instalar o lftp
+      # Instalar lftp
       - name: Install lftp
         run: sudo apt-get install -y lftp
 
-      # Verificar se as variáveis de ambiente estão configuradas corretamente
+      # Verificar os valores dos secrets
       - name: Check FTP credentials
         run: |
           echo "FTP username: ${{ secrets.AZURE_FTP_USERNAME }}"
           echo "FTP password: ${{ secrets.AZURE_FTP_PASSWORD }}"
 
-      # Fazer o upload usando lftp
+      # Fazer upload com lftp via FTPS
       - name: Upload files to Azure Web App via FTPS
         run: |
           echo "Iniciando upload de arquivos..."
