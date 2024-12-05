@@ -36,7 +36,3 @@ jobs:
           slot-name: Production
           package: ./
           publish-profile: ./publish-profile.xml
-
-      # Limpeza do arquivo de perfil de publicação
-      - name: Clean up publish profile file
-        run: rm publish-profile.xml
