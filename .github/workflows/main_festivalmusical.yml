@@ -1,4 +1,4 @@
-name: Deploy via FTP to Azure Web App with curl
+name: Deploy via FTPS to Azure Web App with curl
 
 on:
   push:
@@ -17,14 +17,14 @@ jobs:
       - name: Install curl
         run: sudo apt-get install -y curl
 
-      # Testar conexão FTP
-      - name: Test FTP Connection with curl
+      # Testar conexão FTPS
+      - name: Test FTPS Connection with curl
         run: |
-          echo "Testando conexão FTP com curl..."
-          curl -v --ftp-ssl --user ${{ secrets.AZURE_FTP_USERNAME }}:${{ secrets.AZURE_FTP_PASSWORD }} ftp://waws-prod-cq1-021dr.ftp.azurewebsites.windows.net/
+          echo "Testando conexão FTPS com curl..."
+          curl -v --ftp-ssl --user ${{ secrets.AZURE_FTP_USERNAME }}:${{ secrets.AZURE_FTP_PASSWORD }} ftps://waws-prod-cq1-021dr.ftp.azurewebsites.windows.net:990/
 
-      # Upload com curl
-      - name: Upload files to Azure Web App via FTP with curl
+      # Upload com FTPS usando curl
+      - name: Upload files to Azure Web App via FTPS with curl
         run: |
-          echo "Iniciando upload com curl..."
-          curl -v --ftp-ssl --user ${{ secrets.AZURE_FTP_USERNAME }}:${{ secrets.AZURE_FTP_PASSWORD }} -T "./index.php" ftp://waws-prod-cq1-021dr.ftp.azurewebsites.windows.net/site/wwwroot/
+          echo "Iniciando upload com FTPS..."
+          curl -v --ftp-ssl --user ${{ secrets.AZURE_FTP_USERNAME }}:${{ secrets.AZURE_FTP_PASSWORD }} -T "./index.php" ftps://waws-prod-cq1-021dr.ftp.azurewebsites.windows.net:990/site/wwwroot/
