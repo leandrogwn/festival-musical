@@ -23,5 +23,5 @@ jobs:
         run: |
           echo "Iniciando upload de arquivos..."
           lftp -u "festivalmusical\$festivalmusical","yu22l1ruebTK3vH4nuTXzNqZ2PezZY49FjJsKy4knY60oE5H4sopfPfSdrjk" \
-            -e "set ftp:ssl-allow true; mirror -R ./  \
+            -e "set ftp:ssl-allow true; mirror -R ./ " \
             ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net/site/wwwroot
