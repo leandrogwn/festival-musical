@@ -11,8 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check environment variables
-        run: echo ${{ secrets.AZURE_PUBLISH_PROFILE }}
+      - name: Check if publish profile is set
+        run: |
+          if [ -z "${{ secrets.AZURE_PUBLISH_PROFILE }}" ]; then
+            echo "Publish profile not set"
+            exit 1
+          else
+            echo "Publish profile is set."
+          fi
       - name: Checkout repository
         uses: actions/checkout@v4
 
