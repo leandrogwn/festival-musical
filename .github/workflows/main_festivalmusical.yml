@@ -1,4 +1,4 @@
-name: Upload files to Azure Web App
+name: Deploy via FTP to Azure Web App
 
 on:
   push:
@@ -14,25 +14,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Verifica se o secret do perfil de publicação está configurado
-      - name: Check if publish profile is set
-        run: |
-          if [ -z "${{ secrets.AZURE_PUBLISH_PROFILE }}" ]; then
-            echo "Publish profile not set"
-            exit 1
-          else
-            echo "Publish profile is set."
-          fi
-
-      # Cria o arquivo de perfil de publicação
-      - name: Create publish profile file
-        run: echo "${{ secrets.AZURE_PUBLISH_PROFILE }}" > publish-profile.xml
-
-      # Faz o upload dos arquivos para o Azure
-      - name: Upload files to Azure Web App (no build)
-        uses: azure/webapps-deploy@v3
+      - name: Upload files to Azure Web App via FTP
+        uses: appleboy/ftp-action@v1
         with:
-          app-name: festivalmusical
-          slot-name: Production
-          package: ./
-          publish-profile: ./publish-profile.xml
+          host: ftps://waws-prod-cq1-021dr.ftp.azurewebsites.windows.net
+          username: ${{ secrets.AZURE_FTP_USERNAME }}
+          password: ${{ secrets.AZURE_FTP_PASSWORD }}
+          local-dir: ./ # Diretório local a ser enviado (pode ser ajustado conforme necessário)
+          remote-dir: /site/wwwroot # Diretório de destino no Azure
