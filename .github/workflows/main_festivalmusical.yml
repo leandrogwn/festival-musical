@@ -19,6 +19,4 @@ jobs:
 
       - name: Upload files to Azure Web App via FTP
         run: |
-          lftp -u ${{ secrets.AZURE_FTP_USERNAME }},${{ secrets.AZURE_FTP_PASSWORD }} ftps://waws-prod-cq1-021dr.ftp.azurewebsites.windows.net <<EOF
-          mirror -R ./ /site/wwwroot
-          EOF
+          lftp -u ${{ secrets.AZURE_FTP_USERNAME }},${{ secrets.AZURE_FTP_PASSWORD }} ftps://waws-prod-cq1-021dr.ftp.azurewebsites.windows.net -e "mirror -R ./ /site/wwwroot; quit"
