@@ -14,19 +14,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Instalar lftp
-      - name: Install lftp
-        run: sudo apt-get install -y lftp
-
-      # Verificar os valores dos secrets
-      - name: Check FTP credentials
-        run: |
-          echo "FTP username: ${{ secrets.AZURE_FTP_USERNAME }}"
-          echo "FTP password: ${{ secrets.AZURE_FTP_PASSWORD }}"
-
-      - name: Upload files to Azure Web App via FTPS
-        run: |
-          echo "Iniciando upload de arquivos..."
-          lftp -u "${{ secrets.AZURE_FTP_USERNAME }}","${{ secrets.AZURE_FTP_PASSWORD }}" \
-            -e "set ftp:ssl-allow true; set ftp:passive-mode true; mirror -R ./ /site/wwwroot; quit" \
-            ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net
+      - name: Upload files to Azure Web App via FTP
+        uses: appleboy/ftp-action@v1
+        with:
+          host: waws-prod-cq1-021.ftp.azurewebsites.windows.net
+          username: ${{ secrets.AZURE_FTP_USERNAME }}
+          password: ${{ secrets.AZURE_FTP_PASSWORD }}
+          port: 990
+          secure: true
+          local-dir: ./
+          remote-dir: /site/wwwroot
