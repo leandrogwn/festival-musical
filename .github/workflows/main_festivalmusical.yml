@@ -19,7 +19,7 @@ jobs:
       - name: Upload to Azure via FTPS
         run: |
           echo "Iniciando upload de arquivos..."
-          lftp -u "festivalmusical\$festivalmusical,${AZURE_FTP_PASSWORD}" ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net <<EOF
+          lftp -u "festivalmusical\\\$festivalmusical,${AZURE_FTP_PASSWORD}" ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net <<EOF
           set ftp:ssl-allow true
           lcd ./ # Diretório local onde estão seus arquivos
           cd /site/wwwroot
