@@ -14,13 +14,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install ftp client
-        run: sudo apt-get install -y ftp
+        run: sudo apt-get install -y lftp
 
       - name: Upload to Azure via FTP
         run: |
           echo "Iniciando upload de arquivos..."
-          ftp -inv ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net <<EOF
-          user festivalmusical\$festivalmusical ${AZURE_FTP_PASSWORD}
+          lftp -inv ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net <<EOF
+          user "festivalmusical\$festivalmusical" ${AZURE_FTP_PASSWORD}
           binary
           lcd ./ # Diretório local onde estão seus arquivos
           cd /site/wwwroot
