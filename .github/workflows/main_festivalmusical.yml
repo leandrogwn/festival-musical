@@ -13,15 +13,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install ftp client
+      - name: Install lftp client
         run: sudo apt-get install -y lftp
 
-      - name: Upload to Azure via FTP
+      - name: Upload to Azure via FTPS
         run: |
           echo "Iniciando upload de arquivos..."
-          lftp -inv ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net <<EOF
-          user "festivalmusical\$festivalmusical" ${AZURE_FTP_PASSWORD}
-          binary
+          lftp -u "festivalmusical\$festivalmusical,${AZURE_FTP_PASSWORD}" ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net <<EOF
+          set ftp:ssl-allow true
           lcd ./ # Diretório local onde estão seus arquivos
           cd /site/wwwroot
           mput *
