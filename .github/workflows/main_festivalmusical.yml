@@ -26,6 +26,6 @@ jobs:
           echo "Iniciando upload de arquivos..."
           # Enviar arquivos de forma recursiva usando curl
           find ./ -type f -exec curl -T {} \
-            --ftp-ssl \
+            --ftp-ssl  --tlsv1.2\
             --user "${{ secrets.AZURE_FTP_USERNAME }}:${{ secrets.AZURE_FTP_PASSWORD }}" \
             "ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net/site/wwwroot/{}" \;
