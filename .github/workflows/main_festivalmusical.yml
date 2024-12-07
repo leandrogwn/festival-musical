@@ -31,10 +31,11 @@ jobs:
           # Enviar arquivos individualmente via wget
           find ./ -type f | while read file; do
             echo "Enviando $file..."
-            wget --ftp-user="${{ secrets.AZURE_FTP_USERNAME }}" \
+            wget --no-check-certificate \
+                 --ftp-user="${{ secrets.AZURE_FTP_USERNAME }}" \
                  --ftp-password="${{ secrets.AZURE_FTP_PASSWORD }}" \
                  --secure-protocol=auto \
                  --method=PUT \
                  --body-file="$file" \
-                 "ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net/site/wwwroot/$file"
+                 "ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net:990/site/wwwroot/$file"
           done
