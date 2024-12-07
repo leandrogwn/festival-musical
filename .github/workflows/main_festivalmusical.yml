@@ -28,6 +28,6 @@ jobs:
       - name: Upload files to Azure Web App via FTPS
         run: |
           echo "Iniciando upload de arquivos..."
-          lftp -u "${{ secrets.AZURE_FTP_USERNAME }}","${{ secrets.AZURE_FTP_PASSWORD }}" \
+          lftp -d -u "${{ secrets.AZURE_FTP_USERNAME }}","${{ secrets.AZURE_FTP_PASSWORD }}" \
                -e "set ftp:ssl-allow true; set ftp:ssl-force true; set mirror:parallel 10; mirror -R ./ /site/wwwroot; quit" \
                ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net
