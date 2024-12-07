@@ -1,27 +1,32 @@
-name: Deploy to Azure via FTP
+name: Deploy via FTPS to Azure Web App using lftp
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  upload:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-
       - name: Install lftp
         run: sudo apt-get install -y lftp
 
-      - name: Debug FTPS Connection
+      # Verificar se as variáveis de ambiente estão configuradas corretamente
+      - name: Check FTP credentials
         run: |
-          echo "Testing FTPS connection..."
-          lftp -u "${{ secrets.AZURE_FTP_USERNAME }},${{ secrets.AZURE_FTP_PASSWORD }}" -e "open ftp://waws-prod-cq1-021.ftp.azurewebsites.windows.net; ls; bye"
-
-      - name: Deploy to Azure Web App via FTPS
+          echo "FTP username: ${{ secrets.AZURE_FTP_USERNAME }}"
+          echo "FTP password: ${{ secrets.AZURE_FTP_PASSWORD }}"
+          
+      # Fazer o upload usando lftp
+      - name: Upload files to Azure Web App via FTPS
         run: |
-          lftp -u "${{ secrets.AZURE_FTP_USERNAME }},${{ secrets.AZURE_FTP_PASSWORD }}" -e "mirror --reverse --delete --verbose ./ ftp://waws-prod-cq1-021.ftp.azurewebsites.windows.net/site/wwwroot; bye"
+          echo "Iniciando upload de arquivos..."
+          lftp -u "${{ secrets.AZURE_FTP_USERNAME }}","${{ secrets.AZURE_FTP_PASSWORD }}" \
+            -e "set ftp:ssl-allow true; mirror -R ./ /; quit" \
+            ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net/site/wwwroot
