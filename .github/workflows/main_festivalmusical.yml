@@ -13,16 +13,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install lftp client
+
+      - name: Install lftp
         run: sudo apt-get install -y lftp
 
-      - name: Upload to Azure via FTPS
+      - name: Debug FTPS Connection
         run: |
-          echo "Iniciando upload de arquivos..."
-          lftp -u "${{ secrets.AZURE_FTP_USERNAME }}\\${{ secrets.AZURE_FTP_PASSWORD }}" ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net <<EOF
-          set ftp:ssl-allow true
-          lcd ./  # Altera o diretório local
-          cd /site/wwwroot  # Altera o diretório no servidor
-          mput *  # Faz o upload de todos os arquivos
-          quit  # Finaliza a conexão
-          EOF
+          echo "Testing FTPS connection..."
+          lftp -u "${{ secrets.AZURE_FTP_USERNAME }},${{ secrets.AZURE_FTP_PASSWORD }}" -e "open ftp://waws-prod-cq1-021.ftp.azurewebsites.windows.net; ls; bye"
+
+      - name: Deploy to Azure Web App via FTPS
+        run: |
+          lftp -u "${{ secrets.AZURE_FTP_USERNAME }},${{ secrets.AZURE_FTP_PASSWORD }}" -e "mirror --reverse --delete --verbose ./ ftp://waws-prod-cq1-021.ftp.azurewebsites.windows.net/site/wwwroot; bye"
