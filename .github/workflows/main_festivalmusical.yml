@@ -1,4 +1,4 @@
-name: Deploy via FTPS to Azure Web App using wget
+name: Deploy via FTPS to Azure Web App using lftp
 
 on:
   push:
@@ -20,22 +20,14 @@ jobs:
           echo "FTP username: ${{ secrets.AZURE_FTP_USERNAME }}"
           echo "FTP password: ${{ secrets.AZURE_FTP_PASSWORD }}"
 
-      # Instalar wget
-      - name: Install wget
-        run: sudo apt-get install -y wget
+      # Instalar lftp
+      - name: Install lftp
+        run: sudo apt-get install -y lftp
 
-      # Fazer o upload usando wget
+      # Fazer o upload usando lftp
       - name: Upload files to Azure Web App via FTPS
         run: |
           echo "Iniciando upload de arquivos..."
-          # Enviar arquivos individualmente via wget
-          find ./ -type f | while read file; do
-            echo "Enviando $file..."
-            wget --no-check-certificate \
-                 --ftp-user="${{ secrets.AZURE_FTP_USERNAME }}" \
-                 --ftp-password="${{ secrets.AZURE_FTP_PASSWORD }}" \
-                 --secure-protocol=auto \
-                 --method=PUT \
-                 --body-file="$file" \
-                 "ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net:990/site/wwwroot/$file"
-          done
+          lftp -u "${{ secrets.AZURE_FTP_USERNAME }}","${{ secrets.AZURE_FTP_PASSWORD }}" \
+               -e "set ftp:ssl-allow true; set ftp:ssl-force true; set mirror:parallel 10; mirror -R ./ /site/wwwroot; quit" \
+               ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net
