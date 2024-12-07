@@ -1,4 +1,4 @@
-name: Deploy via FTPS to Azure Web App using curl
+name: Deploy via FTPS to Azure Web App using ncftp
 
 on:
   push:
@@ -14,18 +14,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Instalar o ncftp
+      - name: Install ncftp
+        run: sudo apt-get install -y ncftp
+
       # Verificar se as variáveis de ambiente estão configuradas corretamente
       - name: Check FTP credentials
         run: |
           echo "FTP username: ${{ secrets.AZURE_FTP_USERNAME }}"
           echo "FTP password: ${{ secrets.AZURE_FTP_PASSWORD }}"
 
-      # Fazer o upload usando curl
+      # Fazer o upload usando ncftp
       - name: Upload files to Azure Web App via FTPS
         run: |
           echo "Iniciando upload de arquivos..."
-          # Enviar arquivos de forma recursiva usando curl
-          find ./ -type f -exec curl -T {} \
-            --ftp-ssl  --tlsv1.2\
-            --user "${{ secrets.AZURE_FTP_USERNAME }}:${{ secrets.AZURE_FTP_PASSWORD }}" \
-            "ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net/site/wwwroot/{}" \;
+          # Utilizando o comando ncftpput para enviar os arquivos via FTPS
+          ncftpput -R -v -u "${{ secrets.AZURE_FTP_USERNAME }}" -p "${{ secrets.AZURE_FTP_PASSWORD }}" \
+            -P 990 -E ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net/site/wwwroot/ ./ 
