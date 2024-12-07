@@ -1,4 +1,4 @@
-name: Deploy via FTPS to Azure Web App using ncftp
+name: Deploy via FTPS to Azure Web App using wget
 
 on:
   push:
@@ -14,20 +14,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Instalar o ncftp
-      - name: Install ncftp
-        run: sudo apt-get install -y ncftp
-
       # Verificar se as variáveis de ambiente estão configuradas corretamente
       - name: Check FTP credentials
         run: |
           echo "FTP username: ${{ secrets.AZURE_FTP_USERNAME }}"
           echo "FTP password: ${{ secrets.AZURE_FTP_PASSWORD }}"
 
-      # Fazer o upload usando ncftp
+      # Instalar wget
+      - name: Install wget
+        run: sudo apt-get install -y wget
+
+      # Fazer o upload usando wget
       - name: Upload files to Azure Web App via FTPS
         run: |
           echo "Iniciando upload de arquivos..."
-          # Utilizando o comando ncftpput para enviar os arquivos via FTPS
-          ncftpput -R -v -u "${{ secrets.AZURE_FTP_USERNAME }}" -p "${{ secrets.AZURE_FTP_PASSWORD }}" \
-            -P 990 -E ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net/site/wwwroot/ ./ 
+          # Enviar arquivos individualmente via wget
+          find ./ -type f | while read file; do
+            echo "Enviando $file..."
+            wget --ftp-user="${{ secrets.AZURE_FTP_USERNAME }}" \
+                 --ftp-password="${{ secrets.AZURE_FTP_PASSWORD }}" \
+                 --secure-protocol=auto \
+                 --method=PUT \
+                 --body-file="$file" \
+                 "ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net/site/wwwroot/$file"
+          done
