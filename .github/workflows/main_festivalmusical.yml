@@ -29,10 +29,5 @@ jobs:
         run: |
           echo "Iniciando upload de arquivos..."
           lftp -d -u "${{ secrets.AZURE_FTP_USERNAME }}","${{ secrets.AZURE_FTP_PASSWORD }}" \
-              -e "
-              set ftp:ssl-allow true;
-              set ftp:tls-force true; 
-              set ftp:passive-mode true; 
-              mirror -R ./ /; 
-              quit" \
+              -e "set ftp:ssl-allow true; set ftp:tls-force true; set ftp:passive-mode true;  mirror -R ./ /;  quit" \
               ftps://waws-prod-cq1-021.ftp.azurewebsites.windows.net/site/wwwroot
