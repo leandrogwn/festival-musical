@@ -2,8 +2,10 @@
 
 require_once implode( DIRECTORY_SEPARATOR, [ __DIR__, 'vendor', 'autoload.php' ] );
 
-$dotenv = Dotenv\Dotenv::createImmutable( __DIR__ );
-$dotenv->load();
+if (getenv('APPLICATION_ENV') === 'production') {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+}
 
 $sslCertPath = $_ENV[ 'AZURE_SSLCERT_PATH' ];
 
