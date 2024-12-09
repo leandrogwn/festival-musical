@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '\vendor\autoload.php';
 
-if ( $_ENV[ 'APPSETTING_WEBSITE_SITE_NAME' ] === 'festivalmusical' ) {
+if ( $_ENV[ 'APPSETTING_WEBSITE_SITE_NAME' ] !== 'festivalmusical' ) {
     $dotenv = Dotenv\Dotenv::createImmutable( __DIR__ );
     $dotenv->load();
 }

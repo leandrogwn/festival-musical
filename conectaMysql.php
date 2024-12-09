@@ -2,7 +2,7 @@
 
 require_once implode( DIRECTORY_SEPARATOR, [ __DIR__, 'vendor', 'autoload.php' ] );
 
-if ( $_ENV[ 'APPSETTING_WEBSITE_SITE_NAME' ] === 'festivalmusical' ) {
+if ( $_ENV[ 'APPSETTING_WEBSITE_SITE_NAME' ] !== 'festivalmusical' ) {
     $dotenv = Dotenv\Dotenv::createImmutable( __DIR__ );
     $dotenv->load();
 }
@@ -26,7 +26,7 @@ $conMysql = mysqli_init();
 
 // Configurando o SSL
 
-if ( $_ENV[ 'APPLICATION_ENV' ] === 'production' ) {
+if ( $_ENV[ 'APPSETTING_WEBSITE_SITE_NAME' ] === 'festivalmusical' ) {
     mysqli_ssl_set( $conMysql, NULL, NULL, $sslCertPath, NULL, NULL );
 }
 
