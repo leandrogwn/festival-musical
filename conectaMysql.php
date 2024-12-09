@@ -2,7 +2,7 @@
 
 require_once implode( DIRECTORY_SEPARATOR, [ __DIR__, 'vendor', 'autoload.php' ] );
 
-if ( $_ENV[ 'APPLICATION_ENV' ] === 'production' ) {
+if ( $_ENV[ 'APPSETTING_WEBSITE_SITE_NAME' ] === 'festivalmusical' ) {
     $dotenv = Dotenv\Dotenv::createImmutable( __DIR__ );
     $dotenv->load();
 }

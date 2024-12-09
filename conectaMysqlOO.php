@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '\vendor\autoload.php';
 
-if ( $_ENV[ 'APPLICATION_ENV' ] === 'production' ) {
+if ( $_ENV[ 'APPSETTING_WEBSITE_SITE_NAME' ] === 'festivalmusical' ) {
     $dotenv = Dotenv\Dotenv::createImmutable( __DIR__ );
     $dotenv->load();
 }
@@ -15,7 +15,7 @@ class conectaMysql
  {
         try {
             $options = [];
-            if ( $_ENV[ 'APPLICATION_ENV' ] === 'production' ) {
+            if ( $_ENV[ 'APPSETTING_WEBSITE_SITE_NAME' ] === 'festivalmusical' ) {
                 $options = [
                     PDO::MYSQL_ATTR_SSL_CA => $_ENV[ 'AZURE_SSLCERT_PATH' ],
                     PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
