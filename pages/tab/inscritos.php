@@ -3,7 +3,7 @@ error_reporting(0);
 if (!isset($_SESSION)) {
     session_start();
 }
-include("../../conect/conectaMysqlOO.php");
+include("../../conectaMysqlOO.php");
 
 $consultaF = "select * from f_config ORDER BY id DESC LIMIT 1";
 

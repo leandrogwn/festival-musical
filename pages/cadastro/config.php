@@ -1,6 +1,6 @@
 <?php
 session_start();
-include ("../../conect/conectaMysqlOO.php");
+include ("../../conectaMysqlOO.php");
 
 class config {
     

@@ -5,7 +5,7 @@ if (!isset($_SESSION)) {
 
 $idFestival = $_SESSION['festival'];
 
-include("../conect/conectaMysqlOO.php");
+include("../conectaMysqlOO.php");
 
 $idJurado = $_SESSION['idUser'];
 

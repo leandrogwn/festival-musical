@@ -29,7 +29,7 @@ class verificarLogin
             echo "<br><br><center><a href=\"index.html\">Clique aqui para tentar novamente</a></center>";
         } else {
 
-            include '../conect/conectaMysql.php';
+            include '../conectaMysql.php';
             $festAtivo = mysqli_query($conMysql, "select festival_ativo from f_config order by id desc limit 1")
                 or die("<br>Não foi possivel realizar a busca. Erros: " . mysqli_error($conMysql));
 

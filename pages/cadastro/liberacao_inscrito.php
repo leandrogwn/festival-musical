@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
     session_start();
     $_SESSION['tab'] = "inscrito";
 }
-include ("../../conect/conectaMysqlOO.php");
+include ("../../conectaMysqlOO.php");
 
 class liberacao_inscrito {
 

@@ -15,7 +15,7 @@ include '../header.php';
 <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
 
 <?php
-include('../../conect/conectaMysqlOO.php');
+include('../../conectaMysqlOO.php');
 $consulta = "select * from f_festival";
 
 $Objf = new conectaMysql();

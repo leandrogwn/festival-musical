@@ -3,7 +3,8 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-include 'conect/conectaMysql.php';
+include 'conectaMysql.php';
+
 $config = mysqli_query($conMysql, "select * from f_config order by id desc limit 1")
         or die("<br>Não foi possivel realizar a busca. Erros: " . mysqli_error($conMysql));
 

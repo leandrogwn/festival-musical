@@ -3,7 +3,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-include("../conect/conectaMysqlOO.php");
+include("../conectaMysqlOO.php");
 
 $idFestival = $_SESSION['festival'];
 $ObjConecta = new conectaMysql();

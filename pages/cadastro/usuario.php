@@ -3,7 +3,7 @@ if (!isset($_SESSION)) {
     session_start();
     $_SESSION['tab'] = "usuario";
 }
-include ("../../conect/conectaMysqlOO.php");
+include ("../../conectaMysqlOO.php");
 
 class usuario {
 

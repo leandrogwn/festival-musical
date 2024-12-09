@@ -1,6 +1,6 @@
 <?php
 
-include ("../../conect/conectaMysqlOO.php");
+include ("../../conectaMysqlOO.php");
 
 class festival {
 

@@ -3,8 +3,8 @@ date_default_timezone_set('America/Sao_Paulo');
 if (!isset($_SESSION)) {
     session_start();
 }
-include("../../conect/conectaMysqlOO.php");
-include("../../conect/conectaMysql.php");
+include("../../conectaMysqlOO.php");
+include("../../conectaMysql.php");
 
 $idFestival = $_SESSION['festival'];
 
