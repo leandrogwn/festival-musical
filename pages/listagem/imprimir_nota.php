@@ -34,66 +34,79 @@ if ($_SESSION['exclusao_notas'] == 0) {
 
 if ($fase == "1") {
    
-    $consultaInscrito = "select 
+    $consultaInscrito = "SELECT  
     f_inscricao.id, 
-    f_inscricao.festival,
-    f_inscricao.nome, 
-    f_inscricao.cidade, 
-    f_inscricao.uf, 
-    f_inscricao.cancao, 
-    f_inscricao.gravado_por, 
+    GROUP_CONCAT(f_inscricao.festival) AS festival,
+    GROUP_CONCAT(f_inscricao.nome) AS nome, 
+    GROUP_CONCAT(f_inscricao.cidade) AS cidade, 
+    GROUP_CONCAT(f_inscricao.uf) AS uf, 
+    GROUP_CONCAT(f_inscricao.cancao) AS cancao, 
+    GROUP_CONCAT(f_inscricao.gravado_por) AS gravado_por, 
     f_nota.fase, 
     f_nota.id_interprete, 
 
-    avg(f_nota.afinacao) as afinacao_s_regra, 
-    avg(f_nota.interpretacao) as interpretacao_s_regra, 
-    avg(f_nota.ritmo) as ritmo_s_regra, 
-    avg(f_nota.letra) as letra_s_regra, 
-    
-    avg(f_nota.nota) as nota_s_regra, 
+    AVG(f_nota.afinacao) AS afinacao_s_regra, 
+    AVG(f_nota.interpretacao) AS interpretacao_s_regra, 
+    AVG(f_nota.ritmo) AS ritmo_s_regra, 
+    AVG(f_nota.letra) AS letra_s_regra, 
+    AVG(f_nota.nota) AS nota_s_regra, 
 
-    (sum(f_nota.afinacao)-(min(f_nota.afinacao)+max(f_nota.afinacao)))/(count(f_nota.afinacao)-2) as afinacao_c_regra, 
-    (sum(f_nota.interpretacao)-(min(f_nota.interpretacao)+max(f_nota.interpretacao)))/(count(f_nota.interpretacao)-2) as interpretacao_c_regra, 
-    (sum(f_nota.ritmo)-(min(f_nota.ritmo)+max(f_nota.ritmo)))/(count(f_nota.ritmo)-2) as ritmo_c_regra, 
-    (sum(f_nota.letra)-(min(f_nota.letra)+max(f_nota.letra)))/(count(f_nota.letra)-2) as letra_c_regra, 
+    (SUM(f_nota.afinacao) - (MIN(f_nota.afinacao) + MAX(f_nota.afinacao))) / (COUNT(f_nota.afinacao) - 2) AS afinacao_c_regra, 
+    (SUM(f_nota.interpretacao) - (MIN(f_nota.interpretacao) + MAX(f_nota.interpretacao))) / (COUNT(f_nota.interpretacao) - 2) AS interpretacao_c_regra, 
+    (SUM(f_nota.ritmo) - (MIN(f_nota.ritmo) + MAX(f_nota.ritmo))) / (COUNT(f_nota.ritmo) - 2) AS ritmo_c_regra, 
+    (SUM(f_nota.letra) - (MIN(f_nota.letra) + MAX(f_nota.letra))) / (COUNT(f_nota.letra) - 2) AS letra_c_regra, 
 
-    (sum(f_nota.afinacao)-(min(f_nota.afinacao)+max(f_nota.afinacao)))/(count(f_nota.afinacao)-2)/4+
-    (sum(f_nota.interpretacao)-(min(f_nota.interpretacao)+max(f_nota.interpretacao)))/(count(f_nota.interpretacao)-2)/4+
-    (sum(f_nota.ritmo)-(min(f_nota.ritmo)+max(f_nota.ritmo)))/(count(f_nota.ritmo)-2)/4+
-    (sum(f_nota.letra)-(min(f_nota.letra)+max(f_nota.letra)))/(count(f_nota.letra)-2)/4
-    as nota_c_regra
+    (SUM(f_nota.afinacao) - (MIN(f_nota.afinacao) + MAX(f_nota.afinacao))) / (COUNT(f_nota.afinacao) - 2) / 4 +
+    (SUM(f_nota.interpretacao) - (MIN(f_nota.interpretacao) + MAX(f_nota.interpretacao))) / (COUNT(f_nota.interpretacao) - 2) / 4 +
+    (SUM(f_nota.ritmo) - (MIN(f_nota.ritmo) + MAX(f_nota.ritmo))) / (COUNT(f_nota.ritmo) - 2) / 4 +
+    (SUM(f_nota.letra) - (MIN(f_nota.letra) + MAX(f_nota.letra))) / (COUNT(f_nota.letra) - 2) / 4 AS nota_c_regra
     
-    from f_inscricao
-    inner join f_nota
-    on f_inscricao.id = f_nota.id_interprete
-    and f_nota.fase = 1
-    and f_nota.genero like '$nome_categoria'
-    and f_inscricao.festival like '$idFestival'
-    group by 
-    f_nota.id_interprete order by $regra desc, 
-    $afinacao desc, 
-    $interpretacao desc, 
-    $ritmo desc,
-    $letra desc limit $qtd_class_seg_fase";
+FROM f_inscricao
+INNER JOIN f_nota
+    ON f_inscricao.id = f_nota.id_interprete
+    AND f_nota.fase = 1
+    AND f_nota.genero LIKE '$nome_categoria'
+    AND f_inscricao.festival LIKE '$idFestival'
+GROUP BY 
+    f_nota.id_interprete
+ORDER BY 
+    $regra DESC, 
+    $afinacao DESC, 
+    $interpretacao DESC, 
+    $ritmo DESC,
+    $letra DESC
+LIMIT $qtd_class_seg_fase;
+";
 
 } else if ($fase == "2") {
-    $consultaInscrito = "select f_inscricao.id, f_inscricao.festival, f_inscricao.nome, f_inscricao.cidade, f_inscricao.uf, f_inscricao.cancao, f_inscricao.gravado_por, f_nota.fase, f_nota.id_interprete, avg(f_nota.afinacao) as nota_afinacao, avg(f_nota.interpretacao) as nota_interpretacao, avg(f_nota.ritmo) as nota_ritmo, avg(f_nota.letra) as nota_letra, avg(f_nota.nota) as nota_s_regra, (sum(f_nota.nota)-(min(f_nota.nota)+max(f_nota.nota)))/(count(f_nota.nota)-2) as nota_c_regra, min(f_nota.nota) as menor_nota, max(f_nota.nota) as maior_nota
-from f_inscricao
-inner join f_nota
-on f_inscricao.id = f_nota.id_interprete
-and f_nota.fase = 2
-and f_nota.genero like '$nome_categoria'
-and f_inscricao.festival like '$idFestival'
-group by f_nota.id_interprete order by $regra desc, nota_afinacao desc, nota_interpretacao desc, nota_ritmo desc, nota_letra desc limit $qtd_class_final";
-} else if ($fase == "3") {
-    $consultaInscrito = "select f_inscricao.id, f_inscricao.festival, f_inscricao.nome, f_inscricao.cidade, f_inscricao.uf, f_inscricao.cancao, f_inscricao.gravado_por, f_nota.fase, f_nota.id_interprete, avg(f_nota.afinacao) as nota_afinacao, avg(f_nota.interpretacao) as nota_interpretacao, avg(f_nota.ritmo) as nota_ritmo, avg(f_nota.letra) as nota_letra, avg(f_nota.nota) as nota_s_regra, (sum(f_nota.nota)-(min(f_nota.nota)+max(f_nota.nota)))/(count(f_nota.nota)-2) as nota_c_regra, min(f_nota.nota) as menor_nota, max(f_nota.nota) as maior_nota
-from f_inscricao
-inner join f_nota
-on f_inscricao.id = f_nota.id_interprete
-and f_nota.fase = 3
-and f_nota.genero like '$nome_categoria'
-and f_inscricao.festival like '$idFestival'
-group by f_nota.id_interprete order by $regra desc, nota_afinacao desc, nota_interpretacao desc, nota_ritmo desc, nota_letra desc";
+    $consultaInscrito = "SELECT 
+    f_inscricao.id,
+    GROUP_CONCAT(f_inscricao.festival) AS festival,
+    GROUP_CONCAT(f_inscricao.nome) AS nome,
+    GROUP_CONCAT(f_inscricao.cidade) AS cidade,
+    GROUP_CONCAT(f_inscricao.uf) AS uf,
+    GROUP_CONCAT(f_inscricao.cancao) AS cancao,
+    GROUP_CONCAT(f_inscricao.gravado_por) AS gravado_por,
+    f_nota.fase,
+    f_nota.id_interprete,
+    AVG(f_nota.afinacao) AS nota_afinacao,
+    AVG(f_nota.interpretacao) AS nota_interpretacao,
+    AVG(f_nota.ritmo) AS nota_ritmo,
+    AVG(f_nota.letra) AS nota_letra,
+    AVG(f_nota.nota) AS nota_s_regra,
+    (SUM(f_nota.nota) - (MIN(f_nota.nota) + MAX(f_nota.nota))) / (COUNT(f_nota.nota) - 2) AS nota_c_regra,
+    MIN(f_nota.nota) AS menor_nota,
+    MAX(f_nota.nota) AS maior_nota
+FROM f_inscricao
+INNER JOIN f_nota
+    ON f_inscricao.id = f_nota.id_interprete
+    AND f_nota.fase = 2
+    AND f_nota.genero LIKE '$nome_categoria'
+    AND f_inscricao.festival LIKE '$idFestival'
+GROUP BY f_nota.id_interprete
+ORDER BY $regra DESC, nota_afinacao DESC, nota_interpretacao DESC, nota_ritmo DESC, nota_letra DESC
+LIMIT $qtd_class_final;
+";
 
 }
 
