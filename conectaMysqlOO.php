@@ -1,8 +1,8 @@
 <?php
 
-if ( $_ENV[ 'APPSETTING_WEBSITE_SITE_NAME' ] !== 'festivalmusical' ) {
+require_once implode( DIRECTORY_SEPARATOR, [ __DIR__, 'vendor', 'autoload.php' ] );
 
-    require_once __DIR__ . '\vendor\autoload.php';
+if ( $_ENV[ 'APPSETTING_WEBSITE_SITE_NAME' ] !== 'festivalmusical' ) {
 
     $dotenv = Dotenv\Dotenv::createImmutable( __DIR__ );
     $dotenv->load();
@@ -45,7 +45,7 @@ class conectaMysql
 
     /* Método insert que insere valores no banco de dados e retorna o último id inserido */
 
-    public function insertDB( $sql, $params = null, $tela, $caminho )
+    public function insertDB( $sql, $tela, $caminho, $params = null )
  {
         try {
             $conexao = $this->connect();
@@ -64,7 +64,7 @@ class conectaMysql
 
     /* Método insert que insere notas no banco de dados e retorna o último id inserido */
 
-    public function insertDBNota( $sql, $params = null, $tela, $caminho )
+    public function insertDBNota( $sql, $tela, $caminho, $params = null )
  {
         try {
             $conexao = $this->connect();
@@ -82,7 +82,7 @@ class conectaMysql
 
     /* Método insert que insere valores no banco de dados e retorna o último id inserido */
 
-    public function insertDBInscricao( $sql, $params = null, $tela, $caminho )
+    public function insertDBInscricao( $sql, $tela, $caminho, $params = null )
  {
         $conexao = $this->connect();
         $query = $conexao->prepare( $sql );
@@ -103,7 +103,7 @@ class conectaMysql
 
     /* Método update para a tabela f_liberacao */
 
-    public function updateDBLiberacao( $sql, $params = null, $tela, $caminho )
+    public function updateDBLiberacao( $sql, $tela, $caminho, $params = null )
  {
         try {
             $query = $this->connect()->prepare( $sql );
@@ -122,7 +122,7 @@ class conectaMysql
 
     /* Método delete que excluí valores do banco de dados retorna o número de linhas afetadas */
 
-    public function deleteDB( $sql, $params = null, $tela, $caminho )
+    public function deleteDB( $sql, $tela, $caminho, $params = null )
  {
         $query = $this->connect()->prepare( $sql );
         $query->execute( $params );
