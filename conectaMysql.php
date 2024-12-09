@@ -2,8 +2,8 @@
 
 require_once implode( DIRECTORY_SEPARATOR, [ __DIR__, 'vendor', 'autoload.php' ] );
 
-if (getenv('APPLICATION_ENV') === 'production') {
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+if ( $_ENV[ 'APPLICATION_ENV' ] === 'production' ) {
+    $dotenv = Dotenv\Dotenv::createImmutable( __DIR__ );
     $dotenv->load();
 }
 
@@ -26,7 +26,7 @@ $conMysql = mysqli_init();
 
 // Configurando o SSL
 
-if ( getenv( 'APPLICATION_ENV' ) === 'production' ) {
+if ( $_ENV[ 'APPLICATION_ENV' ] === 'production' ) {
     mysqli_ssl_set( $conMysql, NULL, NULL, $sslCertPath, NULL, NULL );
 }
 
