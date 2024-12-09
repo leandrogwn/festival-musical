@@ -50,7 +50,7 @@ class Config {
                       VALUES (:user, :festival_ativo, :registros_pagina, :exclusao_notas, :qtd_class_seg_fase, :qtd_class_final, :domain)";
 
         // Preparar a consulta com MySQLi
-        $stmt = mysqli_prepare( $ObjConecta->conMysql, $this->sql );
+        $stmt = mysqli_prepare( $ObjConecta->con, $this->sql );
 
         // Associar os parâmetros
         $stmt->bindParam( ':user', $this->id_user, PDO::PARAM_INT );
