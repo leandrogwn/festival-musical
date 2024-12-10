@@ -33,8 +33,9 @@ class jurado {
 
     private function gravaDados() {
         $ObjConecta = new conectaMysql();
+        $conexao = $ObjConecta->connect();
         $this->sql = "INSERT INTO f_jurado (festival, nome, login, senha, informacao) VALUES ('$this->festival', '$this->nome', '$this->login','$this->senha', '$this->informacao')";
-        $ObjConecta->insertDB($this->sql, null, $this->tela, "../tab/jurado.php");
+        $conexao->insertDB($this->sql, null, $this->tela, "../tab/jurado.php");
     }
 
 }
