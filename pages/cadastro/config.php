@@ -49,8 +49,11 @@ class Config {
         $this->sql = "INSERT INTO f_config (user, festival_ativo, registros_pagina, exclusao_notas, qtd_class_seg_fase, qtd_class_final, domain) 
                       VALUES (:user, :festival_ativo, :registros_pagina, :exclusao_notas, :qtd_class_seg_fase, :qtd_class_final, :domain)";
 
-        // Preparar a consulta com MySQLi
-        $stmt = $ObjConecta->pdo->prepare($this->sql);
+        // Obter a conexão com o banco de dados
+        $conexao = $ObjConecta->connect();
+
+        // Preparar a consulta com PDO
+        $stmt = $conexao->prepare( $this->sql );
 
         // Associar os parâmetros
         $stmt->bindParam( ':user', $this->id_user, PDO::PARAM_INT );
