@@ -148,11 +148,11 @@ class conectaMysql
 
     /* Método select que retorna um VO ou um array de objetos */
 
-    public function selectDB( $sql, $params, $class = null )
+    public function selectDB( $sql, $class = null )
  {
         $conexao = $this->connect();
         $query = $conexao->prepare( $sql );
-        $query->execute( $params );
+        $query->execute();
 
         if ( isset( $class ) ) {
             $rs = $query->fetchAll( PDO::FETCH_CLASS, $class );
