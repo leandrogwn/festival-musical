@@ -53,11 +53,11 @@ class conectaMysql
             $query->execute( $params );
 
             $_SESSION[ $tela ] = 'sucess';
-            echo '<script>location.replace (\'$caminho\');</script>';
+            echo '<script>location.replace (\'' . $caminho . '\');</script>';
 
         } catch ( PDOException $exc ) {
             $_SESSION[ $tela ] = 'erro';
-            echo '<script>location.replace (\'$caminho\');</script>';
+            echo '<script>location.replace (\'' . $caminho . '\');</script>';
 
         }
     }
@@ -71,11 +71,11 @@ class conectaMysql
             $query = $conexao->prepare( $sql );
             $query->execute( $params );
             $_SESSION[ $tela ] = 'sucess';
-            echo '<script>location.replace (\'$caminho\');</script>';
+            echo '<script>location.replace (\'' . $caminho . '\');</script>';
 
         } catch ( PDOException $exc ) {
             $_SESSION[ $tela ] = 'erro';
-            echo '<script>location.replace (\'$caminho\');</script>';
+            echo '<script>location.replace (\'' . $caminho . '\');</script>';
 
         }
     }
