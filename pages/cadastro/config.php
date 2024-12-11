@@ -45,9 +45,9 @@ class Config {
     private function atualizaConfig() {
         $ObjConecta = new conectaMysql();
 
-        // Usando prepared staKtements para evitar injeção de SQL
-        $this->sql = "INSERT INTO f_config (id, user, festival_ativo, registros_pagina, exclusao_notas, qtd_class_seg_fase, qtd_class_final, domain) 
-                      VALUES (null,:user, :festival_ativo, :registros_pagina, :exclusao_notas, :qtd_class_seg_fase, :qtd_class_final, :domain)";
+        // Usando prepared statements para evitar injeção de SQL
+        $this->sql = "INSERT INTO f_config (user, festival_ativo, registros_pagina, exclusao_notas, qtd_class_seg_fase, qtd_class_final, domain) 
+                      VALUES (:user, :festival_ativo, :registros_pagina, :exclusao_notas, :qtd_class_seg_fase, :qtd_class_final, :domain)";
 
         // Obter a conexão com o banco de dados
         $conexao = $ObjConecta->connect();
