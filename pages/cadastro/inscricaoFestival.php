@@ -1,10 +1,10 @@
 <?php
 
-if (!isset($_SESSION)) {
+if ( !isset( $_SESSION ) ) {
     session_start();
-    $_SESSION['tab'] = "inscrito";
+    $_SESSION[ 'tab' ] = 'inscrito';
 }
-include ("../../conectaMysqlOO.php");
+include ( '../../conectaMysqlOO.php' );
 
 class inscricaoFestival {
 
@@ -40,36 +40,62 @@ class inscricaoFestival {
     }
 
     private function recebeDados() {
-        $this->dadosForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        $this->festival = $this->dadosForm["festival"];
-        $this->nome = $this->dadosForm["nome"];
-        $this->nascimento = $this->dadosForm["nascimento"];
-        $this->rg = $this->dadosForm["rg"];
-        $this->cpf = $this->dadosForm["cpf"];
-        $this->telefone = $this->dadosForm["telefone"];
-        $this->celular = $this->dadosForm["celular"];
-        $this->email = $this->dadosForm["email"];
-        $this->informacoes_interprete = $this->dadosForm["informacao_interprete"];
-        $this->cep = $this->dadosForm["cep"];
-        $this->uf = $this->dadosForm["uf"];
-        $this->rua = $this->dadosForm["rua"];
-        $this->numero = $this->dadosForm["numero"];
-        $this->bairro = $this->dadosForm["bairro"];
-        $this->cidade = $this->dadosForm["cidade"];
-        $this->categoria = $this->dadosForm["categoria"];
-        $this->cancao = $this->dadosForm["cancao"];
-        $this->compositor = $this->dadosForm["compositor"];
-        $this->gravado_por = $this->dadosForm["gravado_por"];
-        $this->link = $this->dadosForm["link"];
-        $this->informacao_cancao = $this->dadosForm["informacao_cancao"];
-        $this->letra = $this->dadosForm["letra"];
-        $this->tela = $this->dadosForm["tela"];
+        $this->dadosForm = filter_input_array( INPUT_POST, FILTER_DEFAULT );
+        $this->festival = $this->dadosForm[ 'festival' ];
+        $this->nome = $this->dadosForm[ 'nome' ];
+        $this->nascimento = $this->dadosForm[ 'nascimento' ];
+        $this->rg = $this->dadosForm[ 'rg' ];
+        $this->cpf = $this->dadosForm[ 'cpf' ];
+        $this->telefone = $this->dadosForm[ 'telefone' ];
+        $this->celular = $this->dadosForm[ 'celular' ];
+        $this->email = $this->dadosForm[ 'email' ];
+        $this->informacoes_interprete = $this->dadosForm[ 'informacao_interprete' ];
+        $this->cep = $this->dadosForm[ 'cep' ];
+        $this->uf = $this->dadosForm[ 'uf' ];
+        $this->rua = $this->dadosForm[ 'rua' ];
+        $this->numero = $this->dadosForm[ 'numero' ];
+        $this->bairro = $this->dadosForm[ 'bairro' ];
+        $this->cidade = $this->dadosForm[ 'cidade' ];
+        $this->categoria = $this->dadosForm[ 'categoria' ];
+        $this->cancao = $this->dadosForm[ 'cancao' ];
+        $this->compositor = $this->dadosForm[ 'compositor' ];
+        $this->gravado_por = $this->dadosForm[ 'gravado_por' ];
+        $this->link = $this->dadosForm[ 'link' ];
+        $this->informacao_cancao = $this->dadosForm[ 'informacao_cancao' ];
+        $this->letra = $this->dadosForm[ 'letra' ];
+        $this->tela = $this->dadosForm[ 'tela' ];
     }
 
     private function gravaDados() {
         $ObjConecta = new conectaMysql();
-        $this->sql = "INSERT INTO f_inscricao (festival, nome, nascimento, rg, cpf, telefone, celular, email, informacoes_interprete, cep, uf, rua, numero, bairro, cidade, categoria, cancao, compositor, gravado_por, link, informacao_cancao, letra) VALUES ('$this->festival', '$this->nome', '$this->nascimento', '$this->rg', '$this->cpf', '$this->telefone', '$this->celular', '$this->email', '$this->informacoes_interprete', '$this->cep', '$this->uf', '$this->rua', '$this->numero', '$this->bairro', '$this->cidade', '$this->categoria', '$this->cancao', '$this->compositor', '$this->gravado_por', '$this->link', '$this->informacao_cancao', '$this->letra')";
-        $ObjConecta->insertDBInscricao($this->sql, null, $this->tela, "../inscricaoFestival.php");
+        $this->sql = "INSERT INTO f_inscricao (festival, nome, nascimento, rg, cpf, telefone, celular, email, informacoes_interprete, cep, uf, rua, numero, bairro, cidade, categoria, cancao, compositor, gravado_por, link, informacao_cancao, letra) 
+            VALUES (:festival, :nome, :nascimento, :rg, :cpf, :telefone, :celular, :email, :informacoes_interprete, :cep, :uf, :rua, :numero, :bairro, :cidade, :categoria, :cancao, :compositor, : gravado_por, :link, :informacao_cancao, :letra)";
+        $params = array(
+            ':festival' => $this->festival,
+            ':nome' => $this->nome,
+            ':nascimento' => $this->nascimento,
+            ':rg' => $this->rg,
+            ':cpf' => $this->cpf,
+            ':telefone' => $this->telefone,
+            ':celular' => $this->celular,
+            ':email' => $this->email,
+            ':informacoes_interprete' => $this->informacoes_interprete,
+            ':cep' => $this->cep,
+            ':uf' => $this->uf,
+            ':rua' => $this->rua,
+            ':numero' => $this->numero,
+            ':bairro' => $this->bairro,
+            ':cidade' => $this->cidade,
+            ':categoria' => $this->categoria,
+            ':cancao' => $this->cancao,
+            ':compositor' => $this->compositor,
+            ':gravado_por' => $this->gravado_por,
+            ':link' => $this->link,
+            ':informacao_cancao' => $this->informacao_cancao,
+            ':letra' => $this->letra
+        );
+        $ObjConecta->insertDB( $this->sql, $this->tela, $params, '../tab/inscricao.php' );
+
     }
 
 }

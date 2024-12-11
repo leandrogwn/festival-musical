@@ -31,8 +31,16 @@ class nota {
 
     private function gravaDados() {
         $ObjConecta = new conectaMysql();
-        $this->sql = "INSERT INTO f_nota (fase, id_interprete, id_jurado, nota) VALUES ('$this->fase', '$this->id_interprete', '$this->id_jurado', '$this->nota')";
-        $ObjConecta->insertDB($this->sql, null, $this->tela, "../voto/aguardando.php");
+        $this->sql = "INSERT INTO f_nota (fase, id_interprete, id_jurado, nota) VALUES (:fase, :id_interprete, :id_jurado, :nota)";
+        
+        $params = array(
+            ':fase' => $this->fase,
+            ':id_interprete' => $this->id_interprete,
+            ':id_jurado' => $this->id_jurado,
+            ':nota' => $this->nota
+        );
+        
+        $ObjConecta->insertDB($this->sql, $this->tela, $params, "../voto/aguardando.php");
     }
 
 }

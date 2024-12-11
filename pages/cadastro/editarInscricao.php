@@ -67,9 +67,54 @@ class editarInscricao
     private function gravaDados()
     {
         $ObjConecta = new conectaMysql();
-        $this->sql = "UPDATE f_inscricao SET nome='$this->nome',nascimento='$this->nascimento',rg='$this->rg',cpf='$this->cpf',telefone='$this->telefone',celular='$this->celular',email='$this->email',informacoes_interprete='$this->informacoes_interprete',cep='$this->cep',uf='$this->uf',rua='$this->rua',numero='$this->numero',bairro='$this->bairro',cidade='$this->cidade',categoria='$this->categoria',cancao='$this->cancao',compositor='$this->compositor',gravado_por='$this->gravado_por',link='$this->link',informacao_cancao='$this->informacao_cancao',letra='$this->letra' WHERE id = $this->id";
+        $this->sql = "UPDATE f_inscricao SET nome = :nome,
+        nascimento = :nascimento,
+        rg = :rg,
+        cpf = :cpf,
+        telefone = :telefone,
+        celular = :celular,
+        email = :email,
+        informacoes_interprete = :informacoes_interprete,
+        cep = :cep,
+        uf = :uf,
+        rua = :rua,
+        numero = :numero,
+        bairro = :bairro,
+        cidade = :cidade,
+        categoria = :categoria,
+        cancao = :cancao,
+        compositor = :compositor,
+        gravado_por = :gravado_por,
+        link = :link,
+        informacao_cancao = :informacao_cancao,
+        letra = :letra WHERE id = :id";
 
-        $ObjConecta->updateDBLiberacao($this->sql, null, $this->tela, "../tab/inscritos.php");
+        $params = array(
+            ':nome' => $this->nome,
+            ':nascimento' => $this->nascimento,
+            ':rg' => $this->rg,
+            ':cpf' => $this->cpf,
+            ':telefone' => $this->telefone,
+            ':celular' => $this->celular,
+            ':email' => $this->email,
+            ':informacoes_interprete' => $this->informacoes_interprete, 
+            ':cep' => $this->cep,
+            ':uf' => $this->uf,
+            ':rua' => $this->rua,
+            ':numero' => $this->numero, 
+            ':bairro' => $this->bairro,
+            ':cidade' => $this->cidade, 
+            ':categoria' => $this->categoria,
+            ':cancao' => $this->cancao, 
+            ':compositor' => $this->compositor,
+            ':gravado_por' => $this->gravado_por,   
+            ':link' => $this->link,
+            ':informacao_cancao' => $this->informacao_cancao,
+            ':letra' => $this->letra,
+            ':id' => $this->id
+        );
+
+        $ObjConecta->updateDBLiberacao($this->sql, $this->tela, $params, "../tab/inscritos.php");
     }
 
 }

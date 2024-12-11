@@ -29,8 +29,16 @@ class fase {
 
     private function gravaDados() {
         $ObjConecta = new conectaMysql();
-        $this->sql = "INSERT INTO f_fase (festival, fase, data, informacao) VALUES ('$this->festival', '$this->nome', '$this->data', '$this->informacao')";
-        $ObjConecta->insertDB($this->sql, null, "fase", "A fase <b>".$this->nome."</b> foi inserida com sucesso!");
+        $this->sql = "INSERT INTO f_fase (festival, fase, data, informacao)
+            VALUES (:festival, :fase, :data, :informacao)";
+        $params = array(
+            ':festival' => $this->festival,
+            ':fase' => $this->nome,
+            ':data' => $this->data,
+            ':informacao' => $this->informacao
+        ); 
+
+        $ObjConecta->insertDB($this->sql, "fase", $params, "A fase <b>".$this->nome."</b> foi inserida com sucesso!");
     }
 
 }

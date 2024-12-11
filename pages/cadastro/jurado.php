@@ -36,26 +36,16 @@ class jurado {
     private function gravaDados() {
         $ObjConecta = new conectaMysql();
         $this->sql = "INSERT INTO f_jurado (festival, nome, login, senha, informacao) 
-                            VALUES ('$this->festival', '$this->nome', '$this->login','$this->senha', '$this->informacao')";
-        $conexao = $ObjConecta->connect();
-        $stmt = $conexao->prepare( $this->sql );
+                            VALUES ( :festival, :nome, :login, :senha, :informacao )";
+        $params = array(
+            ':festival' => $this->festival,
+            ':nome' => $this->nome,
+            ':login' => $this->login,
+            ':senha' => $this->senha,
+            ':informacao' => $this->informacao
+        );
 
-        $stmt->bindParam( ':festival', $this->festival, PDO::PARAM_INT );
-        $stmt->bindParam( ':nome', $this->nome, PDO::PARAM_STR );
-        $stmt->bindParam( ':login', $this->login, PDO::PARAM_STR );
-        $stmt->bindParam( ':senha', $this->senha, PDO::PARAM_STR );
-        $stmt->bindParam( ':informacao', $this->informacao, PDO::PARAM_STR );
-
-        // Executar a consulta
-        if ( $stmt->execute() ) {
-            // Redirecionar ou enviar a resposta conforme necessário
-            header( 'Location: ../tab/opcoes.php' );
-            exit();
-        } else {
-            // Erro ao inserir
-            die( 'Erro ao salvar as configurações.' );
-        }
-        $conexao->insertDB( $this->sql, null, $this->tela, '../tab/jurado.php' );
+        $conexao->insertDB( $this->sql, $this->tela, $params, '../tab/jurado.php' );
     }
 
 }

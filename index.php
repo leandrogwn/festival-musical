@@ -184,7 +184,7 @@ while ($registro_config = mysqli_fetch_assoc($config)) {
             <?php
     
         ?>
-            Gurski Assessoria LTDA - CNPJ: 47.506.914/0001-92
+           Orssatto Soluções
         </div>
     </div><!-- /container -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"

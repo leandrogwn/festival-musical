@@ -1,9 +1,9 @@
 <?php
-if (!isset($_SESSION)) {
+if ( !isset( $_SESSION ) ) {
     session_start();
-    $_SESSION['tab'] = "nota";
+    $_SESSION[ 'tab' ] = 'nota';
 }
-include("../../conectaMysqlOO.php");
+include( '../../conectaMysqlOO.php' );
 
 class nota {
 
@@ -27,25 +27,38 @@ class nota {
     }
 
     private function recebeDados() {
-        $this->dadosForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        $this->fase = $this->dadosForm["fase"];
-        $this->id_interprete = $this->dadosForm["id_interprete"];
-        $this->id_jurado = $this->dadosForm["id_jurado"];
-        $this->afinacao = str_replace(",", ".", $this->dadosForm["afinacao"]);
-        $this->ritmo = str_replace(",", ".", $this->dadosForm["ritmo"]);
-        $this->interpretacao = str_replace(",", ".", $this->dadosForm["interpretacao"]);
-        $this->letra = str_replace(",", ".", $this->dadosForm["nota_letra"]);
-        $this->nota = str_replace(",", ".", $this->dadosForm["nota"]);
-        $this->genero = $this->dadosForm["genero"];
-        $this->tela = $this->dadosForm["tela"];
+        $this->dadosForm = filter_input_array( INPUT_POST, FILTER_DEFAULT );
+        $this->fase = $this->dadosForm[ 'fase' ];
+        $this->id_interprete = $this->dadosForm[ 'id_interprete' ];
+        $this->id_jurado = $this->dadosForm[ 'id_jurado' ];
+        $this->afinacao = str_replace( ',', '.', $this->dadosForm[ 'afinacao' ] );
+        $this->ritmo = str_replace( ',', '.', $this->dadosForm[ 'ritmo' ] );
+        $this->interpretacao = str_replace( ',', '.', $this->dadosForm[ 'interpretacao' ] );
+        $this->letra = str_replace( ',', '.', $this->dadosForm[ 'nota_letra' ] );
+        $this->nota = str_replace( ',', '.', $this->dadosForm[ 'nota' ] );
+        $this->genero = $this->dadosForm[ 'genero' ];
+        $this->tela = $this->dadosForm[ 'tela' ];
     }
 
     private function gravaDados() {
 
         $ObjConecta = new conectaMysql();
-        $this->sql = "INSERT INTO f_nota (fase, id_interprete, id_jurado, afinacao, ritmo, interpretacao, letra, nota, genero) VALUES ('$this->fase', $this->id_interprete, $this->id_jurado, '$this->afinacao', '$this->ritmo','$this->interpretacao','$this->letra','$this->nota', '$this->genero')";
+        $this->sql = "INSERT INTO f_nota (fase, id_interprete, id_jurado, afinacao, ritmo, interpretacao, letra, nota, genero) 
+        VALUES (:fase, :id_interprete, :id_jurado, :afinacao, :ritmo, :interpretacao, :letra, :nota, :genero)";
 
-        $ObjConecta->insertDBNota($this->sql, null, $this->tela, "../painel.php");
+        $params = array(
+            ':fase' => $this->fase,
+            ':id_interprete' => $this->id_interprete,
+            ':id_jurado' => $this->id_jurado,
+            ':afinacao' => $this->afinacao,
+            ':ritmo' => $this->ritmo,
+            ':interpretacao' => $this->interpretacao,
+            ':letra' => $this->letra,
+            ':nota' => $this->nota,
+            ':genero' => $this->genero
+        );
+
+        $ObjConecta->insertDBNota( $this->sql, $this->tela, $params, '../painel.php' );
     }
 
 }

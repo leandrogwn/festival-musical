@@ -1,9 +1,9 @@
 <?php
-if (!isset($_SESSION)) {
+if ( !isset( $_SESSION ) ) {
     session_start();
-    $_SESSION['tab'] = "jurado";
+    $_SESSION[ 'tab' ] = 'jurado';
 }
-include ("../../conectaMysqlOO.php");
+include ( '../../conectaMysqlOO.php' );
 
 class excluir_jurado {
 
@@ -19,16 +19,21 @@ class excluir_jurado {
     }
 
     private function recebeDados() {
-        $this->dadosForm = filter_input_array(INPUT_GET, FILTER_DEFAULT);
-        $this->festival = $this->dadosForm["festival"];
-        $this->id_jurado = $this->dadosForm["id_jurado"];
-        $this->tela = $this->dadosForm["tela"];
+        $this->dadosForm = filter_input_array( INPUT_GET, FILTER_DEFAULT );
+        $this->festival = $this->dadosForm[ 'festival' ];
+        $this->id_jurado = $this->dadosForm[ 'id_jurado' ];
+        $this->tela = $this->dadosForm[ 'tela' ];
     }
 
     private function executaQuery() {
         $ObjConecta = new conectaMysql();
-        $this->sql = "DELETE FROM f_jurado WHERE id = $this->id_jurado AND festival = $this->festival";
-        $ObjConecta->deleteDB($this->sql, null, $this->tela, "../listagem/jurado.php");
+        $this->sql = 'DELETE FROM f_jurado WHERE id = :id_jurado AND festival = :festival';
+        $params = array(
+            ':id_jurado' => $this->id_jurado,
+            ':festival' => $this->festival
+        );
+
+        $ObjConecta->deleteDB( $this->sql, $this->tela, $params, '../listagem/jurado.php' );
     }
 }
 $ObjExcluiJurado = new excluir_jurado();

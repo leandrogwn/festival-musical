@@ -64,12 +64,13 @@ class conectaMysql
 
     /* Método insert que insere notas no banco de dados e retorna o último id inserido */
 
-    public function insertDBNota( $sql, $tela, $caminho, $params = null )
+    public function insertDBNota( $sql, $tela, $params, $caminho )
  {
         try {
             $conexao = $this->connect();
             $query = $conexao->prepare( $sql );
             $query->execute( $params );
+
             $_SESSION[ $tela ] = 'sucess';
             echo '<script>location.replace (\'' . $caminho . '\');</script>';
 
@@ -82,39 +83,47 @@ class conectaMysql
 
     /* Método insert que insere valores no banco de dados e retorna o último id inserido */
 
-    public function insertDBInscricao( $sql, $tela, $caminho, $params = null )
+    public function insertDBInscricao( $sql, $tela, $params, $caminho )
  {
         $conexao = $this->connect();
         $query = $conexao->prepare( $sql );
         $query->execute( $params );
+
         $_SESSION[ $tela ] = 'sucess';
-        echo '<script>location.replace (\'$caminho\');</script>';
+        echo '<script>location.replace (\''.$caminho.'\');</script>';
     }
 
     /* Método update que altera valores do banco de dados e retorna o número de linhas afetadas */
 
-    public function updateDB( $sql, $params = null )
+    public function updateDB( $sql, $params )
  {
-        $query = $this->connect()->prepare( $sql );
+
+        $conexao = $this->connect();
+        $query = $conexao->prepare( $sql );
         $query->execute( $params );
+
         $rs = $query->rowCount();
+
         return $rs;
     }
 
     /* Método update para a tabela f_liberacao */
 
-    public function updateDBLiberacao( $sql, $tela, $caminho, $params = null )
+    public function updateDBLiberacao( $sql, $tela, $params, $caminho )
  {
         try {
-            $query = $this->connect()->prepare( $sql );
+            $conexao = $this->connect();
+            $query = $conexao->prepare( $sql );
             $query->execute( $params );
+
             $rs = $query->rowCount();
+
             $_SESSION[ $tela ] = 'update';
-            echo '<script>location.replace (\'$caminho\');</script>';
+            echo '<script>location.replace (\''.$caminho.'\');</script>';
 
         } catch ( PDOException $exc ) {
             $_SESSION[ $tela ] = 'erro';
-            echo '<script>location.replace (\'$caminho\');</script>';
+            echo '<script>location.replace (\''.$caminho.'\');</script>';
 
         }
         return $rs;
@@ -122,22 +131,29 @@ class conectaMysql
 
     /* Método delete que excluí valores do banco de dados retorna o número de linhas afetadas */
 
-    public function deleteDB( $sql, $tela, $caminho, $params = null )
+    public function deleteDB( $sql, $tela, $params, $caminho )
  {
-        $query = $this->connect()->prepare( $sql );
+
+        $conexao = $this->connect();
+        $query = $conexao->prepare( $sql );
         $query->execute( $params );
+
         $rs = $query->rowCount() or die( print_r( $query->errorInfo() ) );
+
         $_SESSION[ $tela ] = 'deleted';
-        echo '<script>location.replace (\'$caminho\');</script>';
+
+        echo '<script>location.replace (\''.$caminho.'\');</script>';
         return $rs;
     }
 
     /* Método select que retorna um VO ou um array de objetos */
 
-    public function selectDB( $sql, $params = null, $class = null )
+    public function selectDB( $sql, $params, $class = null )
  {
-        $query = $this->connect()->prepare( $sql );
+        $conexao = $this->connect();
+        $query = $conexao->prepare( $sql );
         $query->execute( $params );
+
         if ( isset( $class ) ) {
             $rs = $query->fetchAll( PDO::FETCH_CLASS, $class );
         } else {

@@ -1,6 +1,6 @@
 <?php
 
-include ("../../conectaMysqlOO.php");
+include ( '../../conectaMysqlOO.php' );
 
 class festival {
 
@@ -16,18 +16,23 @@ class festival {
     }
 
     private function recebeDados() {
-        $this->dadosForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        $this->nome = $this->dadosForm["nome_festival"];
-        $this->periodo = $this->dadosForm["periodo_festival"];
-        $this->informacao = $this->dadosForm["informacao_festival"];
+        $this->dadosForm = filter_input_array( INPUT_POST, FILTER_DEFAULT );
+        $this->nome = $this->dadosForm[ 'nome_festival' ];
+        $this->periodo = $this->dadosForm[ 'periodo_festival' ];
+        $this->informacao = $this->dadosForm[ 'informacao_festival' ];
     }
 
     private function gravaDados() {
         $ObjConecta = new conectaMysql();
-        $this->sql = "INSERT INTO f_festival (nome, periodo, informacao) VALUES ('$this->nome', '$this->periodo', '$this->informacao')";
-        $ObjConecta->insertDB($this->sql, null, "festival", "O festival <b>".$this->nome."</b> foi inserido com sucesso!");
-    }
+        $this->sql = 'INSERT INTO f_festival (nome, periodo, informacao) VALUES (:nome, :periodo, :informacao)';
+        $params = array(
+            ':nome' => $this->nome,
+            ':periodo' => $this->periodo,
+            ':informacao' => $this->informacao
+        );
 
+        $ObjConecta->insertDB( $this->sql, 'festival', $params, 'O festival <b>'.$this->nome.'</b> foi inserido com sucesso!' );
+    }
 }
 
 $ObjFestival = new festival();
