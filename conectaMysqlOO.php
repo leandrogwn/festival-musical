@@ -45,7 +45,7 @@ class conectaMysql
 
     /* Método insert que insere valores no banco de dados e retorna o último id inserido */
 
-    public function insertDB( $sql, $tela, $caminho, $params = null )
+    public function insertDB( $sql, $tela, $params, $caminho )
  {
         try {
             $conexao = $this->connect();

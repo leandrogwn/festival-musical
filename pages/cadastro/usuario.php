@@ -2,11 +2,11 @@
 error_reporting( E_ALL );
 ini_set( 'display_errors', 1 );
 
-if (!isset($_SESSION)) {
+if ( !isset( $_SESSION ) ) {
     session_start();
-    $_SESSION['tab'] = "usuario";
+    $_SESSION[ 'tab' ] = 'usuario';
 }
-include ("../../conectaMysqlOO.php");
+include ( '../../conectaMysqlOO.php' );
 
 class usuario {
 
@@ -24,18 +24,24 @@ class usuario {
     }
 
     private function recebeDados() {
-        $this->dadosForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        $this->nome = $this->dadosForm["nome"];
-        $this->login = $this->dadosForm["login"];
-        $this->senha = sha1($this->dadosForm["senha"]);
-        $this->perfil = $this->dadosForm["perfil"];
-        $this->tela = $this->dadosForm["tela"];
+        $this->dadosForm = filter_input_array( INPUT_POST, FILTER_DEFAULT );
+        $this->nome = $this->dadosForm[ 'nome' ];
+        $this->login = $this->dadosForm[ 'login' ];
+        $this->senha = sha1( $this->dadosForm[ 'senha' ] );
+        $this->perfil = $this->dadosForm[ 'perfil' ];
+        $this->tela = $this->dadosForm[ 'tela' ];
     }
 
     private function gravaDados() {
         $ObjConecta = new conectaMysql();
-        $this->sql = "INSERT INTO f_login (nome, login, senha, perfil) VALUES ('$this->nome', '$this->login', '$this->senha', '$this->perfil')";
-        $ObjConecta->insertDB($this->sql, null, $this->tela, "../tab/usuario.php");
+        $this->sql = 'INSERT INTO f_login (nome, login, senha, perfil) VALUES (:nome, :login, :senha, :perfil)';
+        $params = array(
+            ':nome' => $this->nome,
+            ':login' => $this->login,
+            ':senha' => $this->senha,
+            ':perfil' => $this->perfil
+        );
+        $ObjConecta->insertDB( $this->sql,  $this->tela, $params, '../tab/usuario.php' );
     }
 
 }
