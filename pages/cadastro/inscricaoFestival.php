@@ -98,7 +98,6 @@ class inscricaoFestival {
 
         print( $this->sql );
         var_dump($params);
-        sleep(5000);
         $ObjConecta->insertDB( $this->sql, $this->tela, $params, '../tab/inscritos.php' );
 
     }
