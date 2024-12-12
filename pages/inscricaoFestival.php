@@ -2,7 +2,7 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-include ("../conectaMysqlOO.php");
+include ($_SERVER['DOCUMENT_ROOT'] . '/conectaMysqlOO.php');
 
 $consulta = "SELECT f_config.id, f_config.festival_ativo as festivalAtivo, f_festival.nome as nome
 FROM f_config
@@ -38,7 +38,7 @@ $con = $Objf->selectDB($consulta);
                 integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
         <script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
-        <script type="text/javascript" src="../js/jquery.maskedinput-1.1.4.pack.js"/></script>
+        <script type="text/javascript" src="../js/jquery.maskedinput-1.1.4.pack.js"></script>
 
     <!-- Adicionando Javascript -->
     <script type="text/javascript" >
