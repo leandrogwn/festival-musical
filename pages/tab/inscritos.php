@@ -6,7 +6,7 @@ error_reporting(0);
 if (!isset($_SESSION)) {
     session_start();
 }
-include("../../conectaMysqlOO.php");
+include ($_SERVER['DOCUMENT_ROOT'] . '/conectaMysqlOO.php');
 
 $consultaF = "select * from f_config ORDER BY id DESC LIMIT 1";
 
@@ -83,7 +83,7 @@ $num_paginas = ceil($num_total / $itens_por_pagina);
                 <tbody>
                     <?php
                 foreach ($con as $item) {
-                    include '../../conectaMysql.php';
+                    include ($_SERVER['DOCUMENT_ROOT'] . '/conectaMysql.php');
                     $sqlQtd = mysqli_query($conMysql, "select * from f_primeira_fase where id_festival = $item->festival AND id_interprete = $item->id")
                         or die("<br>Não foi possivel realizar a busca. Erro: " . mysqli_error($conMysql));
                     $qtdReg = mysqli_num_rows($sqlQtd);

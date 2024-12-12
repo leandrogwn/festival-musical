@@ -3,7 +3,7 @@ if ( !isset( $_SESSION ) ) {
     session_start();
 }
 
-include( '../conectaMysqlOO.php' );
+include ($_SERVER['DOCUMENT_ROOT'] . '/conectaMysqlOO.php');
 
 $idFestival = $_SESSION[ 'festival' ];
 $ObjConecta = new conectaMysql();
@@ -32,7 +32,7 @@ $countInscrito = $ObjConecta->selectDB( $consultaInscrito );
 <h5 class = 'card-title'>Festival ativo</h5>
 <p class = 'card-text'>
 <?php
-echo $consultaNome[ 'nome' ];
+
 foreach ( $consultaNome as $item ) {
     echo $item->nome;
 }
