@@ -197,11 +197,11 @@ $con = $Objf->selectDB($consulta);
                 <div class="row-fluid">
                     <div class="span12">
                         <label>Nome</label>
-                        <input type="text" id="nome" name="nome" style="width: 99%;" >
+                        <input type="text" id="nome" name="nome" style="width: 99%;" required>
                         <div class="row-fluid">
                             <div class="span4">
                                 <label>Data de nascimento</label>
-                                <input type="date" id="nascimento" name="nascimento" style="width: 95%;" >
+                                <input type="date" id="nascimento" name="nascimento" style="width: 95%;" required>
                             </div>
                             <div class="span4">
                                 <label>RG</label>
