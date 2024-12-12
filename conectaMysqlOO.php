@@ -68,6 +68,7 @@ class conectaMysql
  {
         try {
             $conexao = $this->connect();
+            var_dump($conexao); 
             $query = $conexao->prepare( $sql );
             $query->execute( $params );
 
