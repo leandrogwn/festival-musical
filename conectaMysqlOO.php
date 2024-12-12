@@ -51,9 +51,11 @@ class conectaMysql
             $conexao = $this->connect();
             $query = $conexao->prepare( $sql );
             $query->execute( $params );
+            echo '<script>alert(\'' . $params . '\');</script>';
+            echo '<script>alert(\'' . $sql . '\');</script>';
 
             $_SESSION[ $tela ] = 'sucess';
-            echo '<script>location.replace (\'' . $caminho . '\');</script>';
+            //echo '<script>location.replace (\'' . $caminho . '\');</script>';
 
         } catch ( PDOException $exc ) {
             $_SESSION[ $tela ] = 'erro';
@@ -154,6 +156,7 @@ class conectaMysql
         $conexao = $this->connect();
         $query = $conexao->prepare( $sql );
         $query->execute();
+
 
         if ( isset( $class ) ) {
             $rs = $query->fetchAll( PDO::FETCH_CLASS, $class );

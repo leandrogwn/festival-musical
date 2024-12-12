@@ -5,7 +5,7 @@ if ( !isset( $_SESSION ) ) {
     session_start();
     $_SESSION[ 'tab' ] = 'inscrito';
 }
-include ('../../../conectaMysqlOO.php');
+include ($_SERVER['DOCUMENT_ROOT'] . '/conectaMysqlOO.php');
 
 class inscricaoFestival {
 
