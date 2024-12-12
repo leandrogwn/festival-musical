@@ -93,7 +93,7 @@ class inscricaoFestival {
             ':gravado_por' => $this->gravado_por,
             ':link' => $this->link,
             ':informacao_cancao' => $this->informacao_cancao,
-            ':letra' => $this->letra
+            ':letra' => trim($this->letra)
         );
 
         print( $this->sql );
