@@ -53,6 +53,9 @@ class conectaMysql
             $query->execute( $params );
             echo '<script>alert(\'' . $params . '\');</script>';
             echo '<script>alert(\'' . $sql . '\');</script>';
+            echo '<script>console.log("aqui");</script>';
+            echo '<script>console.log(\'' . $params . '\');</script>';
+            echo '<script>console.log(\'' . $sql . '\');</script>';
 
             $_SESSION[ $tela ] = 'sucess';
             //echo '<script>location.replace (\'' . $caminho . '\');</script>';
