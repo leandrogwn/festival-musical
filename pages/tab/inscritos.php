@@ -22,7 +22,8 @@ foreach ($conF as $item) {
 $itens_por_pagina = $_SESSION['registro_pagina'];
 
 // pegar a pagina atual
-$pagina = intval($_GET['pagina']);
+
+$pagina = isset($_GET['pagina']) ? intval($_GET['pagina']) : "";
 
 // puxar produtos do banco
 $sql_code = "select * from f_inscricao where festival = '" . $festival . " ' order by categoria";
@@ -82,7 +83,7 @@ $num_paginas = ceil($num_total / $itens_por_pagina);
                 <tbody>
                     <?php
                 foreach ($con as $item) {
-                    include '../../conect/conectaMysql.php';
+                    include '../../conectaMysql.php';
                     $sqlQtd = mysqli_query($conMysql, "select * from f_primeira_fase where id_festival = $item->festival AND id_interprete = $item->id")
                         or die("<br>Não foi possivel realizar a busca. Erro: " . mysqli_error($conMysql));
                     $qtdReg = mysqli_num_rows($sqlQtd);

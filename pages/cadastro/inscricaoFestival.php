@@ -5,7 +5,7 @@ if ( !isset( $_SESSION ) ) {
     session_start();
     $_SESSION[ 'tab' ] = 'inscrito';
 }
-include ($_SERVER['DOCUMENT_ROOT'] . '/conectaMysqlOO.php');
+include ( '../../conectaMysqlOO.php' );
 
 class inscricaoFestival {
 
@@ -92,7 +92,7 @@ class inscricaoFestival {
             ':gravado_por' => $this->gravado_por,
             ':link' => $this->link,
             ':informacao_cancao' => $this->informacao_cancao,
-            ':letra' => trim($this->letra)
+            ':letra' => $this->letra
         );
 
         $ObjConecta->insertDB( $this->sql, $this->tela, $params, '../tab/inscritos.php' );

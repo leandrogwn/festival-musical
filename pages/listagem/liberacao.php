@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 if (!isset($_SESSION)) {
     session_start();
 }
-include("/home/site/wwwroot/conectaMysqlOO.php");
+include("../../conectaMysqlOO.php");
 
 $consulta = "SELECT f_config.id, f_config.festival_ativo as festivalAtivo, f_festival.nome as nome
 FROM f_config

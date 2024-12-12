@@ -1,5 +1,6 @@
 <?php
-
+error_reporting( E_ALL );
+ini_set( 'display_errors', 1 );
 require_once implode( DIRECTORY_SEPARATOR, [ __DIR__, 'vendor', 'autoload.php' ] );
 
 if ( $_ENV[ 'APPSETTING_WEBSITE_SITE_NAME' ] !== 'festivalmusical' ) {
@@ -51,14 +52,9 @@ class conectaMysql
             $conexao = $this->connect();
             $query = $conexao->prepare( $sql );
             $query->execute( $params );
-            echo '<script>alert(\'' . $params . '\');</script>';
-            echo '<script>alert(\'' . $sql . '\');</script>';
-            echo '<script>console.log("aqui");</script>';
-            echo '<script>console.log(\'' . $params . '\');</script>';
-            echo '<script>console.log(\'' . $sql . '\');</script>';
 
             $_SESSION[ $tela ] = 'sucess';
-            //echo '<script>location.replace (\'' . $caminho . '\');</script>';
+            echo '<script>location.replace (\'' . $caminho . '\');</script>';
 
         } catch ( PDOException $exc ) {
             $_SESSION[ $tela ] = 'erro';
@@ -73,7 +69,8 @@ class conectaMysql
  {
         try {
             $conexao = $this->connect();
-            var_dump($conexao); 
+            var_dump( $conexao );
+
             $query = $conexao->prepare( $sql );
             $query->execute( $params );
 
@@ -159,7 +156,6 @@ class conectaMysql
         $conexao = $this->connect();
         $query = $conexao->prepare( $sql );
         $query->execute();
-
 
         if ( isset( $class ) ) {
             $rs = $query->fetchAll( PDO::FETCH_CLASS, $class );
