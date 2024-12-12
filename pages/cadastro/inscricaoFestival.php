@@ -95,7 +95,7 @@ class inscricaoFestival {
             ':letra' => $this->letra
         );
 
-        $ObjConecta->insertDB( $this->sql, $this->tela, $params, '../tab/inscritos.php' );
+        $ObjConecta->insertDB( $this->sql, $this->tela, $params, '../inscricaoFestival.php' );
 
     }
 
