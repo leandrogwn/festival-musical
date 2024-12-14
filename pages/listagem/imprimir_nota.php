@@ -23,13 +23,13 @@ if ($_SESSION['exclusao_notas'] == 0) {
     $afinacao = "afinacao_c_regra";
     $interpretacao = "interpretacao_c_regra";
     $ritmo = "ritmo_c_regra";
-    $letra = "letra_c_regra";
+    //$letra = "letra_c_regra";
 } else {
     $regra = "nota_s_regra";
     $afinacao = "afinacao_s_regra";
     $interpretacao = "interpretacao_s_regra";
     $ritmo = "ritmo_s_regra";
-    $letra = "letra_s_regra";
+    //$letra = "letra_s_regra";
 }
 
 if ($fase == "1") {
@@ -48,18 +48,18 @@ if ($fase == "1") {
     AVG(f_nota.afinacao) AS afinacao_s_regra, 
     AVG(f_nota.interpretacao) AS interpretacao_s_regra, 
     AVG(f_nota.ritmo) AS ritmo_s_regra, 
-    AVG(f_nota.letra) AS letra_s_regra, 
+    /*AVG(f_nota.letra) AS letra_s_regra,*/
     AVG(f_nota.nota) AS nota_s_regra, 
 
     (SUM(f_nota.afinacao) - (MIN(f_nota.afinacao) + MAX(f_nota.afinacao))) / (COUNT(f_nota.afinacao) - 2) AS afinacao_c_regra, 
     (SUM(f_nota.interpretacao) - (MIN(f_nota.interpretacao) + MAX(f_nota.interpretacao))) / (COUNT(f_nota.interpretacao) - 2) AS interpretacao_c_regra, 
     (SUM(f_nota.ritmo) - (MIN(f_nota.ritmo) + MAX(f_nota.ritmo))) / (COUNT(f_nota.ritmo) - 2) AS ritmo_c_regra, 
-    (SUM(f_nota.letra) - (MIN(f_nota.letra) + MAX(f_nota.letra))) / (COUNT(f_nota.letra) - 2) AS letra_c_regra, 
+    /*(SUM(f_nota.letra) - (MIN(f_nota.letra) + MAX(f_nota.letra))) / (COUNT(f_nota.letra) - 2) AS letra_c_regra,*/
 
-    (SUM(f_nota.afinacao) - (MIN(f_nota.afinacao) + MAX(f_nota.afinacao))) / (COUNT(f_nota.afinacao) - 2) / 4 +
-    (SUM(f_nota.interpretacao) - (MIN(f_nota.interpretacao) + MAX(f_nota.interpretacao))) / (COUNT(f_nota.interpretacao) - 2) / 4 +
-    (SUM(f_nota.ritmo) - (MIN(f_nota.ritmo) + MAX(f_nota.ritmo))) / (COUNT(f_nota.ritmo) - 2) / 4 +
-    (SUM(f_nota.letra) - (MIN(f_nota.letra) + MAX(f_nota.letra))) / (COUNT(f_nota.letra) - 2) / 4 AS nota_c_regra
+    (SUM(f_nota.afinacao) - (MIN(f_nota.afinacao) + MAX(f_nota.afinacao))) / (COUNT(f_nota.afinacao) - 2) / 3 +
+    (SUM(f_nota.interpretacao) - (MIN(f_nota.interpretacao) + MAX(f_nota.interpretacao))) / (COUNT(f_nota.interpretacao) - 2) / 3 +
+    (SUM(f_nota.ritmo) - (MIN(f_nota.ritmo) + MAX(f_nota.ritmo))) / (COUNT(f_nota.ritmo) - 2) / 3 /*+
+    (SUM(f_nota.letra) - (MIN(f_nota.letra) + MAX(f_nota.letra))) / (COUNT(f_nota.letra) - 2) / 4*/ AS nota_c_regra
     
 FROM f_inscricao
 INNER JOIN f_nota
@@ -73,8 +73,8 @@ ORDER BY
     $regra DESC, 
     $afinacao DESC, 
     $interpretacao DESC, 
-    $ritmo DESC,
-    $letra DESC
+    $ritmo DESC/*,
+    $letra DESC*/
 LIMIT $qtd_class_seg_fase;
 ";
 
@@ -92,7 +92,7 @@ LIMIT $qtd_class_seg_fase;
     AVG(f_nota.afinacao) AS nota_afinacao,
     AVG(f_nota.interpretacao) AS nota_interpretacao,
     AVG(f_nota.ritmo) AS nota_ritmo,
-    AVG(f_nota.letra) AS nota_letra,
+    /*AVG(f_nota.letra) AS nota_letra,*/
     AVG(f_nota.nota) AS nota_s_regra,
     (SUM(f_nota.nota) - (MIN(f_nota.nota) + MAX(f_nota.nota))) / (COUNT(f_nota.nota) - 2) AS nota_c_regra,
     MIN(f_nota.nota) AS menor_nota,
@@ -104,7 +104,7 @@ INNER JOIN f_nota
     AND f_nota.genero LIKE '$nome_categoria'
     AND f_inscricao.festival LIKE '$idFestival'
 GROUP BY f_nota.id_interprete
-ORDER BY $regra DESC, nota_afinacao DESC, nota_interpretacao DESC, nota_ritmo DESC, nota_letra DESC
+ORDER BY $regra DESC, nota_afinacao DESC, nota_interpretacao DESC, nota_ritmo DESC/*, nota_letra DESC*/
 LIMIT $qtd_class_final;
 ";
 
@@ -341,14 +341,14 @@ echo $_SESSION['nome_festival'];
                                 $regraAfinacao = $item->afinacao_c_regra;
                                 $regraInterpretacao = $item->interpretacao_c_regra;
                                 $regraRitmo = $item->ritmo_c_regra;
-                                $regraLetra = $item->letra_c_regra;
+                                //$regraLetra = $item->letra_c_regra;
                                 $info = 'Soma dos critérios - (maior nota do critério + menor nota do critério) / (número de notas - 2)';
                             } else {
                                 $regraNota = $item->nota_s_regra;
                                 $regraAfinacao = $item->afinacao_s_regra;
                                 $regraInterpretacao = $item->interpretacao_s_regra;
                                 $regraRitmo = $item->ritmo_s_regra;
-                                $regraLetra = $item->letra_s_regra;
+                                //$regraLetra = $item->letra_s_regra;
                                 $info = 'Soma dos critérios / número de notas';
                             }
                             echo '<tr style="text-transform:capitalize; font-weight:bold;"><td style="text-align:center">' . $i . '</td><td style="text-align:center">' . $item->id . '</td><td>' . $item->nome . '</td><td>' . $item->cidade . '/'. $item->uf .'</td><td>' . $item->cancao . '</td><td>' . $item->gravado_por . '</td><td style="text-align:right;"><b>' . number_format($regraNota, 3, '.', '') . '</b></td>';
@@ -384,7 +384,7 @@ echo $_SESSION['nome_festival'];
                             echo '<td style="text-align:center" colspan="1">Afinação<br>'. number_format($regraAfinacao, 3, '.', '' ) .'</td>';
                             echo '<td style="text-align:center" colspan="1">Ritmo<br>'. number_format($regraRitmo, 3, '.', '' )  .'</td>';
                             echo '<td style="text-align:center" colspan="1">Interpretação<br>'. number_format($regraInterpretacao, 3, '.', '' ) .'</td>';
-                            echo '<td style="text-align:center" colspan="1">Letra<br>'. number_format($regraLetra, 3, '.', '' ) .'</td>';
+                            //echo '<td style="text-align:center" colspan="1">Letra<br>'. number_format($regraLetra, 3, '.', '' ) .'</td>';
                             echo '<td colspan="2"></td>';
                             echo '</tr>';
                         }

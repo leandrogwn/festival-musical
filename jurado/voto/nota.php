@@ -34,7 +34,8 @@ class nota {
         $this->afinacao = str_replace( ',', '.', $this->dadosForm[ 'afinacao' ] );
         $this->ritmo = str_replace( ',', '.', $this->dadosForm[ 'ritmo' ] );
         $this->interpretacao = str_replace( ',', '.', $this->dadosForm[ 'interpretacao' ] );
-        $this->letra = str_replace( ',', '.', $this->dadosForm[ 'nota_letra' ] );
+        //$this->letra = str_replace( ',', '.', $this->dadosForm[ 'nota_letra' ] );
+        $this->letra = 0;
         $this->nota = str_replace( ',', '.', $this->dadosForm[ 'nota' ] );
         $this->genero = $this->dadosForm[ 'genero' ];
         $this->tela = $this->dadosForm[ 'tela' ];

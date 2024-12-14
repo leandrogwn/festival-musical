@@ -54,7 +54,7 @@ $con = $Objf->selectDB($consulta);
                 echo '<label>Cidade/UF</label>';
                 echo '<span><h4>' . $item->cidade . ' - ' . $item->uf . '</h4></span>';
                 echo '<label>Observações do interprete</label>';
-                if ($item->informcoes_interprete != "") {
+                if ($item->informacoes_interprete != "") {
                     echo '<span><h4>' . $item->informacoes_interprete . ' </h4></span>';
                 }
 
@@ -105,7 +105,7 @@ $con = $Objf->selectDB($consulta);
                         placeholder="Notas de 0,01 a 10" required maxlength="4" pattern="^\d(\.\d{1,2}|,\d{1,2})?|10$"
                         onkeyup="mediaNota()" onchange="verificaCriterio('ritmo')">
                 </div>
-
+                <!--
                 <div class="col">
                     <label for="letra">
                         <h4>Letra</h4>
@@ -115,6 +115,7 @@ $con = $Objf->selectDB($consulta);
                         placeholder="Notas de 0,01 a 10" required maxlength="4" pattern="^\d(\.\d{1,2}|,\d{1,2})?|10$"
                         onkeyup="mediaNota()" onchange="verificaCriterio('nota_letra')">
                 </div>
+                 -->
 
             </div>
             <div class="row">
@@ -147,9 +148,9 @@ $con = $Objf->selectDB($consulta);
             var notaAfinacao = document.getElementById('afinacao');
             var notaRitmo = document.getElementById('ritmo');
             var notaApresentacao = document.getElementById('interpretacao');
-            var notaLetra = document.getElementById('nota_letra');
+            //var notaLetra = document.getElementById('nota_letra');
 
-            campoNota.value = ((Number(notaAfinacao.value.replace(",", ".")) + Number(notaRitmo.value.replace(",", ".")) + Number(notaApresentacao.value.replace(",", ".")) + Number(notaLetra.value.replace(",", "."))) / 4).toFixed(3);
+            campoNota.value = ((Number(notaAfinacao.value.replace(",", ".")) + Number(notaRitmo.value.replace(",", ".")) + Number(notaApresentacao.value.replace(",", ".")) /*+ Number(notaLetra.value.replace(",", "."))*/) / 3).toFixed(3);
         }
 
         function isNumber(n) {
@@ -173,11 +174,11 @@ $con = $Objf->selectDB($consulta);
             var afina1 = "";
             var ritmo1 = "";
             var interp1 = "";
-            var nota_letra1 = "";
+            //var nota_letra1 = "";
             afina1 = document.getElementById("afinacao").value;
             ritmo1 = document.getElementById("ritmo").value;
             interp1 = document.getElementById("interpretacao").value;
-            nota_letra1 = document.getElementById("nota_letra").value;
+            //nota_letra1 = document.getElementById("nota_letra").value;
             var getNota = document.getElementById("nota").value;
             var notaPonto = getNota.replace(",", ".");
 
@@ -187,8 +188,8 @@ $con = $Objf->selectDB($consulta);
                 notaErrada(ritmo1, "ritmo");
             } else if (interp1 == "") {
                 notaErrada(interp1, "interpretacao");
-            } else if (nota_letra1 == "") {
-                notaErrada(nota_letra1, "nota_letra");
+            /*} else if (nota_letra1 == "") {
+                notaErrada(nota_letra1, "nota_letra");*/
             } else if (isNumber(notaPonto)) {
                 if (notaPonto > 10 || notaPonto <= 0) {
                     notaErrada(getNota, "campo");
@@ -218,11 +219,11 @@ $con = $Objf->selectDB($consulta);
             var afn = document.getElementById('afinacao').value;
             var rit = document.getElementById('ritmo').value;
             var interp = document.getElementById('interpretacao').value;
-            var notaLetra = document.getElementById('nota_letra').value;
+            //var notaLetra = document.getElementById('nota_letra').value;
             var nota = document.getElementById('nota').value;
             Swal.fire({
                 title: 'Atenção!',
-                html: "Confirma as notas para o interprete <?php echo $item->nome ?>?<br><br>Afinação: <b>" + afn + "</b><br>Ritmo: <b>" + rit + "</b><br> Iterpretação: <b>" + interp + "</b><br> Letra: <b>" + notaLetra + "</b><br> <br>Nota final: <b>" + nota + "</b><br>",
+                html: "Confirma as notas para o interprete <?php echo $item->nome ?>?<br><br>Afinação: <b>" + afn + "</b><br>Ritmo: <b>" + rit + "</b><br> Iterpretação: <b>" + interp + /*"</b><br> Letra: <b>" + notaLetra + */"</b><br> <br>Nota final: <b>" + nota + "</b><br>",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

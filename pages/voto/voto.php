@@ -42,22 +42,23 @@ $con = $Objf->selectDB($consulta);
                 echo '<label>Canção</label>';
                 echo '<span><h4>' . $item->cancao . ' - ' . $item->gravado_por . ' </h4></span>';
 
-                if ($item->informcoes_interprete != "") {
+                if ($item->informacoes_interprete != "") {
                     echo '<label>Observações do interprete</label>';
-                    echo '<span><h4>' . $item->informcoes_interprete . ' </h4></span>';
+                    echo '<span><h4>' . $item->informacoes_interprete . ' </h4></span>';
                 }
 
                 if ($item->informacao_cancao != "") {
                     echo '<label>Observações da canção</label>';
                     echo '<span><h4>' . $item->informacao_cancao . ' </h4></span>';
                 }
-
+                
                 echo '</div>';
+                
                 echo '<div class = "span6">';
                 echo '<label>Letras da canção</label>';
                 echo '<span><h4>' . $item->letra . ' </h4></span>';
                 echo '</div>';
-            }
+                
             ?>
 
         </fieldset>
