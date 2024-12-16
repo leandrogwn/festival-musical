@@ -53,15 +53,10 @@ class conectaMysql
             $query = $conexao->prepare( $sql );
             $query->execute( $params );
 
-            echo '<script>console.log(\'' . $params . '\');</script>';
-            echo '<script>console.log(\'' . $sql . '\');</script>';
-
             $_SESSION[ $tela ] = 'sucess';
-            echo '<script>location.replace (\'' . $caminho . '\');</script>';
 
         } catch ( PDOException $exc ) {
             $_SESSION[ $tela ] = 'erro';
-            echo '<script>location.replace (\'' . $caminho . '\');</script>';
 
         }
     }
@@ -78,11 +73,9 @@ class conectaMysql
             $query->execute( $params );
 
             $_SESSION[ $tela ] = 'sucess';
-            echo '<script>location.replace (\'' . $caminho . '\');</script>';
 
         } catch ( PDOException $exc ) {
             $_SESSION[ $tela ] = 'erro';
-            echo '<script>location.replace (\'' . $caminho . '\');</script>';
 
         }
     }
@@ -96,7 +89,6 @@ class conectaMysql
         $query->execute( $params );
 
         $_SESSION[ $tela ] = 'sucess';
-        echo '<script>location.replace (\''.$caminho.'\');</script>';
     }
 
     /* Método update que altera valores do banco de dados e retorna o número de linhas afetadas */
@@ -125,11 +117,9 @@ class conectaMysql
             $rs = $query->rowCount();
 
             $_SESSION[ $tela ] = 'update';
-            echo '<script>location.replace (\''.$caminho.'\');</script>';
 
         } catch ( PDOException $exc ) {
             $_SESSION[ $tela ] = 'erro';
-            echo '<script>location.replace (\''.$caminho.'\');</script>';
 
         }
         return $rs;
@@ -148,7 +138,6 @@ class conectaMysql
 
         $_SESSION[ $tela ] = 'deleted';
 
-        echo '<script>location.replace (\''.$caminho.'\');</script>';
         return $rs;
     }
 
