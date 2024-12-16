@@ -44,7 +44,7 @@ class liberar_para_apresentar {
             ':status' => 1
         );
 
-        $ObjConecta->updateDB( $this->sql );
+        $ObjConecta->updateDB( $this->sql, $params );
     }
 
     private function iniciarNovaApresentacao() {
