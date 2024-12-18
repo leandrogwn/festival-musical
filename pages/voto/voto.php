@@ -51,14 +51,14 @@ $con = $Objf->selectDB($consulta);
                     echo '<label>Observações da canção</label>';
                     echo '<span><h4>' . $item->informacao_cancao . ' </h4></span>';
                 }
-                
+
                 echo '</div>';
-                
+
                 echo '<div class = "span6">';
                 echo '<label>Letras da canção</label>';
                 echo '<span><h4>' . $item->letra . ' </h4></span>';
                 echo '</div>';
-                
+            }
             ?>
 
         </fieldset>
