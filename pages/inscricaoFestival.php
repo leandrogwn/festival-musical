@@ -273,6 +273,7 @@ $con = $Objf->selectDB($consulta);
                          <select id="categoria" name="categoria"  style="width: 98%">
 							<option value="gospel">Gospel</option>
 							<option value="gaucho">Gaucho</option>
+							<option value="infantil">Infantil</option>
 							<option value="juvenil">Infanto Juvenil</option>
 							<option value="mpb" >MPB</option>
 							<option value="pagode">Pagode</option>

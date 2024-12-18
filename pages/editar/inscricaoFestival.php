@@ -281,6 +281,7 @@ $interprete = $Objf->selectDB($consultaInterprete);
                         <select id="categoria" name="categoria"  style="width: 98%">
 							<option value="gospel" <?php echo ($cat == "gospel")?"selected":""; ?>>Gospel</option>
 							<option value="gaucho" <?php echo ($cat == "gaucho")?"selected":""; ?>>Gaucho</option>
+							<option value="infantil" <?php echo ($cat == "infantil")?"selected":""; ?>>Infantil</option>
 							<option value="juvenil" <?php echo ($cat == "juvenil")?"selected":""; ?>>Infanto Juvenil</option>
 							<option value="mpb" <?php echo ($cat == "mpb")?"selected":""; ?>>MPB</option>
 							<option value="pagode" <?php echo ($cat == "pagode")?"selected":""; ?>>Pagode</option>
