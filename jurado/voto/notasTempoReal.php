@@ -2,8 +2,8 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-include ("../../conectaMysqlOO.php");
-include ("../../conectaMysql.php");
+include ($_SERVER['DOCUMENT_ROOT'] . '/conectaMysqlOO.php');
+include ($_SERVER['DOCUMENT_ROOT'] . '/conectaMysql.php');
 
 $dadosForm = filter_input_array(INPUT_GET, FILTER_DEFAULT);
 $fase = $dadosForm["fase"];
