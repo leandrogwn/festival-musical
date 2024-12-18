@@ -346,8 +346,8 @@ echo $_SESSION['nome_festival'];
                             echo '<tr style="text-transform:capitalize; font-size: 15px;"><td style="text-align:center"><b>' . $i . '</b></td><td style="text-align:center"><b>' . $item->id . '</b></td><td><b>' . $item->nome . '</b></td><td><b>' . $item->cidade . '/'. $item->uf .'</b></td><td><b>' . $item->cancao . '</b></td><td style="text-align:right; font-size: 17px;"><b>' . number_format($regraNota, 3, '.', '') . '</b></td></tr>';
                             echo '<tr>';
                             echo '<td colspan="2" style="border:none; align:center">Afinação<br>'. number_format($regraAfinacao, 3, '.', '' ) .'</td>';
-                            echo '<td colspan="1" style="border:none">Interpretação<br>'. number_format($regraInterpretacao, 3, '.', '' ) .'</td>';
-                            echo '<td colspan="1" style="border:none">Ritmo<br>'. number_format($regraRitmo, 3, '.', '' )  .'</td>';
+                            echo '<td colspan="2" style="border:none">Interpretação<br>'. number_format($regraInterpretacao, 3, '.', '' ) .'</td>';
+                            echo '<td colspan="2" style="border:none">Ritmo<br>'. number_format($regraRitmo, 3, '.', '' )  .'</td>';
                             echo '</tr>';
 							$i++;
                         }
