@@ -284,12 +284,11 @@ $interprete = $Objf->selectDB($consultaInterprete);
 							<option value="infantil" <?php echo ($cat == "infantil")?"selected":""; ?>>Infantil</option>
 							<option value="juvenil" <?php echo ($cat == "juvenil")?"selected":""; ?>>Infanto Juvenil</option>
 							<option value="mpb" <?php echo ($cat == "mpb")?"selected":""; ?>>MPB</option>
+							<option value="nativista" <?php echo ($cat == "nativista")?"selected":""; ?>>Nativista</option>
 							<option value="pagode" <?php echo ($cat == "pagode")?"selected":""; ?>>Pagode</option>
 							<option value="pop" <?php echo ($cat == "pop")?"selected":""; ?>>Pop</option>
 							<option value="popular" <?php echo ($cat == "popular")?"selected":""; ?>>Popular</option>
 							<option value="rap" <?php echo ($cat == "rap")?"selected":""; ?>>Rap</option>
-							<option value="reggae" <?php echo ($cat == "reggae")?"selected":""; ?>>Reggae</option>
-							<option value="rock" <?php echo ($cat == "rock")?"selected":""; ?>>Rock</option>
                             <option value="sertanejo" <?php echo ($cat == "sertanejo")?"selected":""; ?>>Sertanejo</option>
                         </select>
                     </div>

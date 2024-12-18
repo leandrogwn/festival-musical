@@ -85,13 +85,12 @@ $con = $Objf->selectDB($consulta);
     							<option value="gaucho">Gaucho</option>
     							<option value="infantil">Infantil</option>
     							<option value="juvenil">Infanto Juvenil</option>
-    							<option value="mpb" >MPB</option>
+    							<option value="nativista">Nativista</option>
+    							<option value="mpb">MPB</option>
     							<option value="pagode">Pagode</option>
     							<option value="pop">Pop</option>
     							<option value="popular">Popular</option>
     							<option value="rap">Rap</option>
-    							<option value="reggae">Reggae</option>
-    							<option value="rock">Rock</option>
                                 <option value="sertanejo">Sertanejo</option>
                             </select>
                         </div>
