@@ -23,8 +23,8 @@ class painel
     private function recebeDados()
     {
         $this->dadosFormulario = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        $this->usuario = isset($this->dadosFormulario["login_digitado"]);
-        $this->senha = isset($this->dadosFormulario["senha_digitada"]);
+        $this->usuario = $this->dadosFormulario["login_digitado"];
+        $this->senha = sha1($this->dadosFormulario["senha_digitada"]);
     }
 
     private function recebeVerificacao()
