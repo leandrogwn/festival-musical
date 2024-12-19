@@ -310,18 +310,7 @@ echo $_SESSION['nome_festival'];
                             <th>Interprete</th>
                             <th>Cidade/UF</th>
                             <th>Canção</th>
-                            <th>
-                            Nota
-                            <?php
-                            /*if ($fase == 1) {
-                                echo 'Nota 1ª fase';
-                            } elseif ($fase == 2) {
-                                echo 'Nota 2ª fase';
-                            } else {
-                                echo 'Nota final';
-                            }*/
-                            ?>
-                            </th>
+                            <th>Nota</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -343,6 +332,7 @@ echo $_SESSION['nome_festival'];
                                 $regraRitmo = $item->ritmo_s_regra;                              
                             }
 
+                            echo '<script>alert("'.$item->nome.'");</script>';
                             echo '<tr style="text-transform:capitalize; font-size: 15px;"><td style="text-align:center"><b>' . $i . '</b></td><td style="text-align:center"><b>' . $item->id . '</b></td><td><b>' . $item->nome . '</b></td><td><b>' . $item->cidade . '/'. $item->uf .'</b></td><td><b>' . $item->cancao . '</b></td><td style="text-align:right; font-size: 17px;"><b>' . number_format($regraNota, 3, '.', '') . '</b></td></tr>';
                             echo '<tr>';
                             echo '<td colspan="2" style="border:none; align:center">Afinação<br>'. number_format($regraAfinacao, 3, '.', '' ) .'</td>';
