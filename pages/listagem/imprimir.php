@@ -3,31 +3,32 @@ date_default_timezone_set('America/Sao_Paulo');
 if (!isset($_SESSION)) {
     session_start();
 }
-include ("../../conectaMysqlOO.php");
-include ("../../conectaMysql.php");
+if (!isset($_SESSION['festival'])) {
+    include("../../conectaMysqlOO.php");
+    include("../../conectaMysql.php");
 
-$dadosForm = filter_input_array(INPUT_GET, FILTER_DEFAULT);
-$fase = $dadosForm["liberacao_fase"];
-$nome_categoria = $dadosForm["liberacao_categoria"];
-$idFestival = $_SESSION['festival'];
-$qtd_class_seg_fase = $_SESSION['qtd_class_seg_fase'];
-$qtd_class_final = $_SESSION['qtd_class_final'];
+    $dadosForm = filter_input_array(INPUT_GET, FILTER_DEFAULT);
+    $fase = $dadosForm["liberacao_fase"];
+    $nome_categoria = $dadosForm["liberacao_categoria"];
+    $idFestival = $_SESSION['festival'];
+    $qtd_class_seg_fase = $_SESSION['qtd_class_seg_fase'];
+    $qtd_class_final = $_SESSION['qtd_class_final'];
 
-if ($_SESSION['exclusao_notas'] == 0) {
-    $regra = "nota_c_regra";
-    $afinacao = "afinacao_c_regra";
-    $interpretacao = "interpretacao_c_regra";
-    $ritmo = "ritmo_c_regra";
-} else {
-    $regra = "nota_s_regra";
-    $afinacao = "afinacao_s_regra";
-    $interpretacao = "interpretacao_s_regra";
-    $ritmo = "ritmo_s_regra";
-}
+    if ($_SESSION['exclusao_notas'] == 0) {
+        $regra = "nota_c_regra";
+        $afinacao = "afinacao_c_regra";
+        $interpretacao = "interpretacao_c_regra";
+        $ritmo = "ritmo_c_regra";
+    } else {
+        $regra = "nota_s_regra";
+        $afinacao = "afinacao_s_regra";
+        $interpretacao = "interpretacao_s_regra";
+        $ritmo = "ritmo_s_regra";
+    }
 
-if ($fase == "1") {
-    
-    $consultaInscrito = "SELECT 
+    if ($fase == "1") {
+
+        $consultaInscrito = "SELECT 
     f_inscricao.id, 
     GROUP_CONCAT(DISTINCT f_inscricao.festival) AS festival,
     GROUP_CONCAT(DISTINCT f_inscricao.nome) AS nome,
@@ -72,8 +73,8 @@ LIMIT
 ";
 
 
-} else if ($fase == "2") {
-    $consultaInscrito = "SELECT 
+    } else if ($fase == "2") {
+        $consultaInscrito = "SELECT 
     f_inscricao.id, 
     GROUP_CONCAT(DISTINCT f_inscricao.festival) AS festival, 
     GROUP_CONCAT(DISTINCT f_inscricao.nome) AS nome,
@@ -115,241 +116,248 @@ LIMIT
     $qtd_class_final;
 ";
 
-}
+    }
 
-$date = date("Y-m-d");
-
-
-$ObjInscrito = new conectaMysql();
-
-$conInscrito = $ObjInscrito->selectDB($consultaInscrito);
+    $date = date("Y-m-d");
 
 
-?>
-<html>
-    <head>
-        <title>Resultado <?php echo $fase ?> fase <?php echo $_SESSION['nome_festival'] ?></title>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" media="screen" href="../../css/main.css"/>
-        <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+    $ObjInscrito = new conectaMysql();
 
-        <!--Let browser know website is optimized for mobile-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
-        <script src="../../js/jquery-3.3.1.min.js" type="text/javascript"></script>
+    $conInscrito = $ObjInscrito->selectDB($consultaInscrito);
 
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <link rel="shortcut icon" href="../../img/festIbemaFavicon.png" type="image/x-icon">
-        <style>
-            /*
-             * General styles
-             */
-            body, html {
-                height: 100%;
-				font-size:10px!important;
-            }
 
-            .card-container.card {
-                max-width: 350px;
-                padding: 40px 40px;
-            }
+    ?>
+    <html>
+        <head>
+            <title>Resultado <?php echo $fase ?> fase <?php echo $_SESSION['nome_festival'] ?></title>
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" type="text/css" media="screen" href="../../css/main.css"/>
+            <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
 
-            .btn {
-                font-weight: 700;
-                height: 36px;
-                -moz-user-select: none;
-                -webkit-user-select: none;
-                user-select: none;
-                cursor: default;
-            }
+            <!--Let browser know website is optimized for mobile-->
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
+            <script src="../../js/jquery-3.3.1.min.js" type="text/javascript"></script>
 
-            /*
-             * Card component
-             */
-            .card {
-                background-color: #F7F7F7;
-                /* just in case there no content*/
-                padding: 20px 25px 30px;
-                margin: 0 auto 25px;
-                margin-top: 50px;
-                /* shadows and rounded borders */
-                -moz-border-radius: 2px;
-                -webkit-border-radius: 2px;
-                border-radius: 2px;
-                -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-                -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-            }
+            <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+            <link rel="shortcut icon" href="../../img/festIbemaFavicon.png" type="image/x-icon">
+            <style>
+                /*
+                 * General styles
+                 */
+                body, html {
+                    height: 100%;
+                    font-size:10px!important;
+                }
 
-            .profile-img-card {
-                width: 96px;
-                height: 96px;
-                margin: 0 auto 10px;
-                display: block;
+                .card-container.card {
+                    max-width: 350px;
+                    padding: 40px 40px;
+                }
 
-            }
+                .btn {
+                    font-weight: 700;
+                    height: 36px;
+                    -moz-user-select: none;
+                    -webkit-user-select: none;
+                    user-select: none;
+                    cursor: default;
+                }
 
-            /*
-             * Form styles
-             */
-            .profile-name-card {
-                font-size: 16px;
-                font-weight: bold;
-                text-align: center;
-                margin: 10px 0 0;
-                min-height: 1em;
-            }
+                /*
+                 * Card component
+                 */
+                .card {
+                    background-color: #F7F7F7;
+                    /* just in case there no content*/
+                    padding: 20px 25px 30px;
+                    margin: 0 auto 25px;
+                    margin-top: 50px;
+                    /* shadows and rounded borders */
+                    -moz-border-radius: 2px;
+                    -webkit-border-radius: 2px;
+                    border-radius: 2px;
+                    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                }
 
-            .reauth-email {
-                display: block;
-                color: #404040;
-                line-height: 2;
-                margin-bottom: 10px;
-                font-size: 14px;
-                text-align: center;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-            }
+                .profile-img-card {
+                    width: 96px;
+                    height: 96px;
+                    margin: 0 auto 10px;
+                    display: block;
 
-            .form-signin #inputEmail,
-            .form-signin #inputPassword {
-                direction: ltr;
-                height: 44px;
-                font-size: 16px;
-            }
+                }
 
-            .form-signin input[type=email],
-            .form-signin input[type=password],
-            .form-signin input[type=text],
-            .form-signin button {
-                width: 100%;
-                display: block;
-                margin-bottom: 10px;
-                z-index: 1;
-                position: relative;
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-            }
+                /*
+                 * Form styles
+                 */
+                .profile-name-card {
+                    font-size: 16px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 10px 0 0;
+                    min-height: 1em;
+                }
 
-            .form-signin .form-control:focus {
-                border-color: rgb(104, 145, 162);
-                outline: 0;
-                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
-                box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
-            }
+                .reauth-email {
+                    display: block;
+                    color: #404040;
+                    line-height: 2;
+                    margin-bottom: 10px;
+                    font-size: 14px;
+                    text-align: center;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    -moz-box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+                }
 
-            .btn.btn-signin {
-                /*background-color: #4d90fe; */
-                background-color: rgb(104, 145, 162);
-                /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
-                padding: 0px;
-                font-weight: 700;
-                font-size: 14px;
-                height: 36px;
-                -moz-border-radius: 3px;
-                -webkit-border-radius: 3px;
-                border-radius: 3px;
-                border: none;
-                -o-transition: all 0.218s;
-                -moz-transition: all 0.218s;
-                -webkit-transition: all 0.218s;
-                transition: all 0.218s;
-            }
+                .form-signin #inputEmail,
+                .form-signin #inputPassword {
+                    direction: ltr;
+                    height: 44px;
+                    font-size: 16px;
+                }
 
-            .btn.btn-signin:hover,
-            .btn.btn-signin:active,
-            .btn.btn-signin:focus {
-                background-color: rgb(12, 97, 33);
-            }
+                .form-signin input[type=email],
+                .form-signin input[type=password],
+                .form-signin input[type=text],
+                .form-signin button {
+                    width: 100%;
+                    display: block;
+                    margin-bottom: 10px;
+                    z-index: 1;
+                    position: relative;
+                    -moz-box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+                }
 
-            .forgot-password {
-                color: rgb(104, 145, 162);
-            }
+                .form-signin .form-control:focus {
+                    border-color: rgb(104, 145, 162);
+                    outline: 0;
+                    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+                    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+                }
 
-            .forgot-password:hover,
-            .forgot-password:active,
-            .forgot-password:focus{
-                color: rgb(12, 97, 33);
-            }
-            .card{
-                margin-top: 15%;
-            }
+                .btn.btn-signin {
+                    /*background-color: #4d90fe; */
+                    background-color: rgb(104, 145, 162);
+                    /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
+                    padding: 0px;
+                    font-weight: 700;
+                    font-size: 14px;
+                    height: 36px;
+                    -moz-border-radius: 3px;
+                    -webkit-border-radius: 3px;
+                    border-radius: 3px;
+                    border: none;
+                    -o-transition: all 0.218s;
+                    -moz-transition: all 0.218s;
+                    -webkit-transition: all 0.218s;
+                    transition: all 0.218s;
+                }
 
-        </style>
-    </head>
-    <body>
+                .btn.btn-signin:hover,
+                .btn.btn-signin:active,
+                .btn.btn-signin:focus {
+                    background-color: rgb(12, 97, 33);
+                }
 
-        <div class="container-index" id="container">
-            <h2> <?php
-echo $_SESSION['nome_festival'];
-?></h2>
-            <fieldset>
-                <legend>Listagem de classificação de interpretes e 
-                    <?php
-                            if ($fase == 1) {
-                                echo 'notas fase classificatória';
-                            } elseif ($fase == 2) {
-                                echo 'notas fase eliminatória';
-                            } else {
-                                echo 'notas fase final';
-                            }
-                            ?> - Categoria: <span style="text-transform: capitalize;"><?php echo $nome_categoria ?></span>
-                </legend>
-                <table class="table table-striped" style="font-size:12px!important;">
-                    <thead>
-                        <tr>
-							<th>Colocação</th>
-                            <th>Inscrição</th>
-                            <th>Interprete</th>
-                            <th>Cidade/UF</th>
-                            <th>Canção</th>
-                            <th>Nota</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                .forgot-password {
+                    color: rgb(104, 145, 162);
+                }
+
+                .forgot-password:hover,
+                .forgot-password:active,
+                .forgot-password:focus{
+                    color: rgb(12, 97, 33);
+                }
+                .card{
+                    margin-top: 15%;
+                }
+
+            </style>
+        </head>
+        <body>
+
+            <div class="container-index" id="container">
+                <h2> <?php
+                echo $_SESSION['nome_festival'];
+                ?></h2>
+                <fieldset>
+                    <legend>Listagem de classificação de interpretes e 
                         <?php
-						 function data($data) {
-                        return date("d/m/Y", strtotime($data));
-                    }
-						$i = 1;
-                        foreach ($conInscrito as $item) {
-                            if ($_SESSION['exclusao_notas'] == 0) {
-                                $regraNota = $item->nota_c_regra;
-                                $regraAfinacao = $item->afinacao_c_regra;
-                                $regraInterpretacao = $item->interpretacao_c_regra;
-                                $regraRitmo = $item->ritmo_c_regra;
-                            } else {
-                                $regraNota = $item->nota_s_regra;
-                                $regraAfinacao = $item->afinacao_s_regra;
-                                $regraInterpretacao = $item->interpretacao_s_regra;
-                                $regraRitmo = $item->ritmo_s_regra;                              
-                            }
-
-                            echo '<tr style="text-transform:capitalize; font-size: 15px;"><td style="text-align:center"><b>' . $i . '</b></td><td style="text-align:center"><b>' . $item->id . '</b></td><td><b>' . $item->nome . '</b></td><td><b>' . $item->cidade . '/'. $item->uf .'</b></td><td><b>' . $item->cancao . '</b></td><td style="text-align:right; font-size: 17px;"><b>' . number_format($regraNota, 3, '.', '') . '</b></td></tr>';
-                            echo '<tr>';
-                            echo '<td colspan="2" style="border:none; align:center">Afinação<br>'. number_format($regraAfinacao, 3, '.', '' ) .'</td>';
-                            echo '<td colspan="2" style="border:none">Interpretação<br>'. number_format($regraInterpretacao, 3, '.', '' ) .'</td>';
-                            echo '<td colspan="2" style="border:none">Ritmo<br>'. number_format($regraRitmo, 3, '.', '' )  .'</td>';
-                            echo '</tr>';
-							$i++;
+                        if ($fase == 1) {
+                            echo 'notas fase classificatória';
+                        } elseif ($fase == 2) {
+                            echo 'notas fase eliminatória';
+                        } else {
+                            echo 'notas fase final';
                         }
-                        ?>
-                    </tbody>
-                </table>
+                        ?> - Categoria: <span style="text-transform: capitalize;"><?php echo $nome_categoria ?></span>
+                    </legend>
+                    <table class="table table-striped" style="font-size:12px!important;">
+                        <thead>
+                            <tr>
+                                <th>Colocação</th>
+                                <th>Inscrição</th>
+                                <th>Interprete</th>
+                                <th>Cidade/UF</th>
+                                <th>Canção</th>
+                                <th>Nota</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            function data($data)
+                            {
+                                return date("d/m/Y", strtotime($data));
+                            }
+                            $i = 1;
+                            foreach ($conInscrito as $item) {
+                                if ($_SESSION['exclusao_notas'] == 0) {
+                                    $regraNota = $item->nota_c_regra;
+                                    $regraAfinacao = $item->afinacao_c_regra;
+                                    $regraInterpretacao = $item->interpretacao_c_regra;
+                                    $regraRitmo = $item->ritmo_c_regra;
+                                } else {
+                                    $regraNota = $item->nota_s_regra;
+                                    $regraAfinacao = $item->afinacao_s_regra;
+                                    $regraInterpretacao = $item->interpretacao_s_regra;
+                                    $regraRitmo = $item->ritmo_s_regra;
+                                }
 
-            </fieldset>
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    print();
-                });
-            </script>
-        </div>
-    </body>
-</html>
+                                echo '<tr style="text-transform:capitalize; font-size: 15px;"><td style="text-align:center"><b>' . $i . '</b></td><td style="text-align:center"><b>' . $item->id . '</b></td><td><b>' . $item->nome . '</b></td><td><b>' . $item->cidade . '/' . $item->uf . '</b></td><td><b>' . $item->cancao . '</b></td><td style="text-align:right; font-size: 17px;"><b>' . number_format($regraNota, 3, '.', '') . '</b></td></tr>';
+                                echo '<tr>';
+                                echo '<td colspan="2" style="border:none; align:center">Afinação<br>' . number_format($regraAfinacao, 3, '.', '') . '</td>';
+                                echo '<td colspan="2" style="border:none">Interpretação<br>' . number_format($regraInterpretacao, 3, '.', '') . '</td>';
+                                echo '<td colspan="2" style="border:none">Ritmo<br>' . number_format($regraRitmo, 3, '.', '') . '</td>';
+                                echo '</tr>';
+                                $i++;
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+
+                </fieldset>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        print();
+                    });
+                </script>
+            </div>
+        </body>
+    </html>
+    <?php
+} else {
+    $_SESSION['access'] = sha1(date("d/m/Y"));
+    echo '<script>window.location.href = "../../index.php";</script>';
+}
+?>
