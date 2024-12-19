@@ -18,7 +18,7 @@ $Objf = new conectaMysql();
 $con = $Objf->selectDB($consulta);
 ?>
 <div class="container-index" id="container" style="width: 100%;">
-    <form action="nota.php" id="form-nota" method="post" style="width: 90%;">
+    <form action="voto/nota.php" id="form-nota" method="post" style="width: 90%;">
         <fieldset>
             <?php
             if (isset($_SESSION['msg_fase'])) {

@@ -14,6 +14,7 @@ class nota {
     private $afinacao;
     private $ritmo;
     private $interpretacao;
+    private $letra;
     private $nota;
     private $categoria;
     private $genero;
@@ -33,6 +34,7 @@ class nota {
         $this->afinacao = str_replace( ',', '.', $this->dadosForm[ 'afinacao' ] );
         $this->ritmo = str_replace( ',', '.', $this->dadosForm[ 'ritmo' ] );
         $this->interpretacao = str_replace( ',', '.', $this->dadosForm[ 'interpretacao' ] );
+        $this->letra = 0;
         $this->nota = str_replace( ',', '.', $this->dadosForm[ 'nota' ] );
         $this->genero = $this->dadosForm[ 'genero' ];
         $this->tela = $this->dadosForm[ 'tela' ];
@@ -41,8 +43,8 @@ class nota {
     private function gravaDados() {
 
         $ObjConecta = new conectaMysql();
-        $this->sql = "INSERT INTO f_nota (fase, id_interprete, id_jurado, afinacao, ritmo, interpretacao, nota, genero) 
-        VALUES (:fase, :id_interprete, :id_jurado, :afinacao, :ritmo, :interpretacao, :nota, :genero)";
+        $this->sql = "INSERT INTO f_nota (fase, id_interprete, id_jurado, afinacao, ritmo, letra, interpretacao, nota, genero) 
+        VALUES (:fase, :id_interprete, :id_jurado, :afinacao, :ritmo, :letra, :interpretacao, :nota, :genero)";
 
         $params = array(
             ':fase' => $this->fase,
@@ -50,6 +52,7 @@ class nota {
             ':id_jurado' => $this->id_jurado,
             ':afinacao' => $this->afinacao,
             ':ritmo' => $this->ritmo,
+            ':letra' => $this->letra,
             ':interpretacao' => $this->interpretacao,
             ':nota' => $this->nota,
             ':genero' => $this->genero
