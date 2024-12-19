@@ -29,12 +29,12 @@ if ($fase == "1") {
     
     $consultaInscrito = "SELECT 
     f_inscricao.id, 
-    GROUP_CONCAT(f_inscricao.festival) AS festival,
-    GROUP_CONCAT(f_inscricao.nome) AS nome,
-    GROUP_CONCAT(f_inscricao.cidade) AS cidade,
-    GROUP_CONCAT(f_inscricao.uf) AS uf,
-    GROUP_CONCAT(f_inscricao.cancao) AS cancao,
-    GROUP_CONCAT(f_inscricao.gravado_por) AS gravado_por,
+    GROUP_CONCAT(DISTINCT f_inscricao.festival) AS festival,
+    GROUP_CONCAT(DISTINCT f_inscricao.nome) AS nome,
+    GROUP_CONCAT(DISTINCT f_inscricao.cidade) AS cidade,
+    GROUP_CONCAT(DISTINCT f_inscricao.uf) AS uf,
+    GROUP_CONCAT(DISTINCT f_inscricao.cancao) AS cancao,
+    GROUP_CONCAT(DISTINCT f_inscricao.gravado_por) AS gravado_por,
     f_nota.fase, 
     f_nota.id_interprete, 
 
@@ -75,12 +75,12 @@ LIMIT
 } else if ($fase == "2") {
     $consultaInscrito = "SELECT 
     f_inscricao.id, 
-    GROUP_CONCAT(f_inscricao.festival) AS festival, 
-    GROUP_CONCAT(f_inscricao.nome) AS nome,
-    GROUP_CONCAT(f_inscricao.cidade) AS cidade,
-    GROUP_CONCAT(f_inscricao.uf) AS uf,
-    GROUP_CONCAT(f_inscricao.cancao) AS cancao,
-    GROUP_CONCAT(f_inscricao.gravado_por) AS gravado_por,
+    GROUP_CONCAT(DISTINCT f_inscricao.festival) AS festival, 
+    GROUP_CONCAT(DISTINCT f_inscricao.nome) AS nome,
+    GROUP_CONCAT(DISTINCT f_inscricao.cidade) AS cidade,
+    GROUP_CONCAT(DISTINCT f_inscricao.uf) AS uf,
+    GROUP_CONCAT(DISTINCT f_inscricao.cancao) AS cancao,
+    GROUP_CONCAT(DISTINCT f_inscricao.gravado_por) AS gravado_por,
     f_nota.fase, 
     f_nota.id_interprete, 
 
@@ -332,7 +332,6 @@ echo $_SESSION['nome_festival'];
                                 $regraRitmo = $item->ritmo_s_regra;                              
                             }
 
-                            echo '<script>alert("'.$item->nome.'");</script>';
                             echo '<tr style="text-transform:capitalize; font-size: 15px;"><td style="text-align:center"><b>' . $i . '</b></td><td style="text-align:center"><b>' . $item->id . '</b></td><td><b>' . $item->nome . '</b></td><td><b>' . $item->cidade . '/'. $item->uf .'</b></td><td><b>' . $item->cancao . '</b></td><td style="text-align:right; font-size: 17px;"><b>' . number_format($regraNota, 3, '.', '') . '</b></td></tr>';
                             echo '<tr>';
                             echo '<td colspan="2" style="border:none; align:center">Afinação<br>'. number_format($regraAfinacao, 3, '.', '' ) .'</td>';

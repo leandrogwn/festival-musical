@@ -31,12 +31,12 @@ if ($fase == "1") {
    
     $consultaInscrito = "SELECT  
     f_inscricao.id, 
-    GROUP_CONCAT(f_inscricao.festival) AS festival,
-    GROUP_CONCAT(f_inscricao.nome) AS nome, 
-    GROUP_CONCAT(f_inscricao.cidade) AS cidade, 
-    GROUP_CONCAT(f_inscricao.uf) AS uf, 
-    GROUP_CONCAT(f_inscricao.cancao) AS cancao, 
-    GROUP_CONCAT(f_inscricao.gravado_por) AS gravado_por, 
+    GROUP_CONCAT(DISTINCT f_inscricao.festival) AS festival,
+    GROUP_CONCAT(DISTINCT f_inscricao.nome) AS nome, 
+    GROUP_CONCAT(DISTINCT f_inscricao.cidade) AS cidade, 
+    GROUP_CONCAT(DISTINCT f_inscricao.uf) AS uf, 
+    GROUP_CONCAT(DISTINCT f_inscricao.cancao) AS cancao, 
+    GROUP_CONCAT(DISTINCT f_inscricao.gravado_por) AS gravado_por, 
     f_nota.fase, 
     f_nota.id_interprete, 
 
@@ -73,12 +73,12 @@ LIMIT $qtd_class_seg_fase;
 } else if ($fase == "2") {
     $consultaInscrito = "SELECT 
     f_inscricao.id,
-    GROUP_CONCAT(f_inscricao.festival) AS festival,
-    GROUP_CONCAT(f_inscricao.nome) AS nome,
-    GROUP_CONCAT(f_inscricao.cidade) AS cidade,
-    GROUP_CONCAT(f_inscricao.uf) AS uf,
-    GROUP_CONCAT(f_inscricao.cancao) AS cancao,
-    GROUP_CONCAT(f_inscricao.gravado_por) AS gravado_por,
+    GROUP_CONCAT(DISTINCT f_inscricao.festival) AS festival,
+    GROUP_CONCAT(DISTINCT f_inscricao.nome) AS nome,
+    GROUP_CONCAT(DISTINCT f_inscricao.cidade) AS cidade,
+    GROUP_CONCAT(DISTINCT f_inscricao.uf) AS uf,
+    GROUP_CONCAT(DISTINCT f_inscricao.cancao) AS cancao,
+    GROUP_CONCAT(DISTINCT f_inscricao.gravado_por) AS gravado_por,
     f_nota.fase,
     f_nota.id_interprete,
     AVG(f_nota.afinacao) AS nota_afinacao,
@@ -293,20 +293,7 @@ echo $_SESSION['nome_festival'];
                             <th>Cidade/UF</th>
                             <th>Canção</th>
                             <th>Interpretou</th>
-                            <th>
-                                Nota                            
-                            <?php
-                            /*
-                            if ($fase == 1) {
-                                echo 'Nota 1ª fase';
-                            } elseif ($fase == 2) {
-                                echo 'Nota 2ª fase';
-                            } else {
-                                echo 'Nota final';
-                            }
-                            */
-                            ?>
-                            </th>
+                            <th> Nota</th>
                         </tr>
                     </thead>
                     <tbody>
