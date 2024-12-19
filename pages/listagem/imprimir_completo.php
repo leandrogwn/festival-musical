@@ -3,7 +3,8 @@ date_default_timezone_set('America/Sao_Paulo');
 if (!isset($_SESSION)) {
     session_start();
 }
-if (!isset($_SESSION['festival'])) {
+$chave = md5(date("d/m/Y"));
+if (isset($_SESSION['logado']) == $chave) {
     include("../../conectaMysqlOO.php");
     include("../../conectaMysql.php");
 

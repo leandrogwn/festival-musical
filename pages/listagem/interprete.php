@@ -3,11 +3,12 @@ error_reporting(0);
 if (!isset($_SESSION)) {
     session_start();
 }
-if (!isset($_SESSION["festival"])) {
+$chave = md5(date("d/m/Y"));
+if (isset($_SESSION['logado']) == $chave) {
 
     $dadosForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-    $nome_fase = $this->dadosForm["liberacao_fase"];
-    $nome_categoria = $this->dadosForm["liberacao_categoria"];
+    $nome_fase = $dadosForm["liberacao_fase"];
+    $nome_categoria = $dadosForm["liberacao_categoria"];
 
     $consultaInscrito = "select * from f_fase";
 
