@@ -150,6 +150,6 @@ $con = $Objf->selectDB($consulta);
 <?php
 } else {
     $_SESSION['access'] = sha1(date("d/m/Y"));
-    echo '<script>window.location.href = "../index.php";</script>';
+    echo '<script>window.location.href = "../../index.php";</script>';
 }
 ?>
