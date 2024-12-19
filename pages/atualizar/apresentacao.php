@@ -35,15 +35,15 @@ class apresentacao {
 
     private function concluirApresentacaoAtiva() {
         $ObjConecta = new conectaMysql();
-        $this->sql = 'UPDATE f_liberacao SET status = :status where id_festival = :festival AND fase = :fase AND status = :status';
-
+        $this->sql = 'UPDATE f_liberacao SET status = :status where id_festival = :festival AND fase = :fase AND status = :status_atual';
+    
         $params = array(
             ':status' => 2,
             ':festival' => $this->festival,
             ':fase' => $this->fase,
-            ':status' => 1
+            ':status_atual' => 1
         );
-
+    
         $ObjConecta->updateDBLiberacao( $this->sql, $this->tela, $params, "../listagem/listaInterpretes.php?liberacao_fase=$this->fase&liberacao_categoria=$this->categoria" );
     }
 
