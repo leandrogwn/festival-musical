@@ -46,7 +46,7 @@ class verificarLogin
                 $senha_db = $this->registro["senha"];
                 $this->sessao = md5(date("d/m/Y"));
 
-                if ($login_db === $this->usuario && $senha_db === $this->senha || $_SESSION['logado'] === $this->sessao) {
+                if ($login_db === $this->usuario && $senha_db === $this->senha || isset($_SESSION['logado']) && $_SESSION['logado'] === $this->sessao) {
 
                     $this->habilitarSessao();
                 }
