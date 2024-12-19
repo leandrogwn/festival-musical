@@ -321,13 +321,13 @@ LIMIT $qtd_class_final;
                                     $regraAfinacao = $item->afinacao_c_regra;
                                     $regraInterpretacao = $item->interpretacao_c_regra;
                                     $regraRitmo = $item->ritmo_c_regra;
-                                    $info = 'Soma dos critérios - (maior nota do critério + menor nota do critério) / (número de notas - 2)';
+                                    $info = 'Nota obtida através a eliminação da menor e da maior nota e média das notas restantes.';
                                 } else {
                                     $regraNota = $item->nota_s_regra;
                                     $regraAfinacao = $item->afinacao_s_regra;
                                     $regraInterpretacao = $item->interpretacao_s_regra;
                                     $regraRitmo = $item->ritmo_s_regra;
-                                    $info = 'Soma dos critérios / número de notas';
+                                    $info = 'Nota obtida através da média de todas as notas';
                                 }
                                 echo '<tr style="text-transform:capitalize; font-weight:bold;"><td style="text-align:center">' . $i . '</td><td style="text-align:center">' . $item->id . '</td><td>' . $item->nome . '</td><td>' . $item->cidade . '/' . $item->uf . '</td><td>' . $item->cancao . '</td><td>' . $item->gravado_por . '</td><td style="text-align:right;"><b>' . number_format($regraNota, 3, '.', '') . '</b></td>';
 
