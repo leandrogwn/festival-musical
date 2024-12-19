@@ -23,7 +23,7 @@ class verificarLogin
         $this->usuario = $usuario;
         $this->senha = $senha;
 
-        if ($this->usuario === null || $this->senha === null) {
+        if ($this->usuario === "" || $this->senha === "") {
 
             echo "<br><br><center><h2>Os campos login e senha não podem ter valores nulos</2></center>";
             echo "<br><br><center><a href=\"index.php\">Clique aqui para tentar novamente</a></center>";
