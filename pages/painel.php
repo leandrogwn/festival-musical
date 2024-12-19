@@ -19,7 +19,7 @@ class painel
     {
         $this->dadosFormulario = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         $this->usuario = $this->dadosFormulario["login_digitado"];
-        $this->senha = $this->dadosFormulario["senha_digitada"];
+        $this->senha = sha1($this->dadosFormulario["senha_digitada"]);
     }
 
     private function recebeVerificacao()
