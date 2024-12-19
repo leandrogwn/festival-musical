@@ -1,10 +1,11 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 if (!isset($_SESSION)) {
     session_start();
 }
 include("../../conectaMysqlOO.php");
+
+$this->chave = md5(date("d/m/Y"));
+if (isset($_SESSION['logado']) == $this->chave) {
 
 $consulta = "SELECT f_config.id, f_config.festival_ativo as festivalAtivo, f_festival.nome as nome
 FROM f_config
@@ -109,14 +110,14 @@ $con = $Objf->selectDB($consulta);
             $(document).ready(function () {
 
             <?php
-            if (isset($_SESSION[' f '])) {
-                $f = $_SESSION[' f '];
-                $c = $_SESSION[' c '];
-                echo ' $("#liberacao_fase ").val(' .$f. ');
-                    $("#liberacao_categoria ").val("' .$c. '");
-                    $("#botao - listar - interprete ").click();';
+            if (isset($_SESSION['f'])) {
+                $f = $_SESSION['f'];
+                $c = $_SESSION['c'];
+                echo '$("#liberacao_fase").val("' . $f . '");';
+                echo '$("#liberacao_categoria").val("' . $c . '");';
+                echo '$("#botao-listar-interprete").click();';
 
-                    unset($_SESSION[' f '], $_SESSION[' c ']);
+                unset($_SESSION['f'], $_SESSION['c']);
             }
             ?>
 
@@ -146,3 +147,9 @@ $con = $Objf->selectDB($consulta);
 </body>
 
 </html>
+<?php
+} else {
+    $_SESSION['access'] = sha1(date("d/m/Y"));
+    echo '<script>window.location.href = "../index.php";</script>';
+}
+?>
