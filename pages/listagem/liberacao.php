@@ -5,7 +5,7 @@ if (!isset($_SESSION)) {
 include("../../conectaMysqlOO.php");
 
 $chave = md5(date("d/m/Y"));
-if (isset($_SESSION['logado']) == $this->chave) {
+if (isset($_SESSION['logado']) == $chave) {
 
 $consulta = "SELECT f_config.id, f_config.festival_ativo as festivalAtivo, f_festival.nome as nome
 FROM f_config
