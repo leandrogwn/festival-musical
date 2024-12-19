@@ -13,6 +13,7 @@ class apresentacao {
     private $fase;
     private $categoria;
     private $status;
+    private $status_atual;
     private $tela;
     private $sql;
 
@@ -30,6 +31,7 @@ class apresentacao {
         $_SESSION[ 'f' ] = $this->dadosForm[ 'fase' ];
         $_SESSION[ 'c' ] = $this->dadosForm[ 'categoria' ];
         $this->status = 1;
+        $this->status_atual = 1;
         $this->tela = $this->dadosForm[ 'tela' ];
     }
 
