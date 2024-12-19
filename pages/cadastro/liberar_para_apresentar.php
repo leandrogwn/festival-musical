@@ -13,6 +13,7 @@ class liberar_para_apresentar {
     private $fase;
     private $categoria;
     private $status;
+    private $status_atual;
     private $tela;
     private $sql;
 
@@ -31,17 +32,18 @@ class liberar_para_apresentar {
         $_SESSION[ 'f' ] = $this->dadosForm[ 'fase' ];
         $_SESSION[ 'c' ] = $this->dadosForm[ 'categoria' ];
         $this->status = 1;
+        $this->status_atual = 1;
         $this->tela = $this->dadosForm[ 'tela' ];
     }
 
     private function concluirApresentacaoAtiva() {
         $ObjConecta = new conectaMysql();
-        $this->sql = 'UPDATE f_liberacao SET status = :status where id_festival = :festival AND fase = :fase AND status = :status';
+        $this->sql = 'UPDATE f_liberacao SET status = :status where id_festival = :festival AND fase = :fase AND status = :status_atual';
         $params = array(
             ':status' => 2,
             ':festival' => $this->festival,
             ':fase' => $this->fase,
-            ':status' => 1
+            ':status_atual' => 1
         );
 
         $ObjConecta->updateDB( $this->sql, $params );
